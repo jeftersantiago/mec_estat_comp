@@ -1,0 +1,48 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{blindtext}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{txfonts}
+\usepackage{amsmath}
+\usepackage{titling}
+\usepackage{titlesec}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}[\titlerule] 
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{} 
+\renewcommand\thesubsection{\Alph{subsection}}
+
+\begin{document}
+\noindent
+\large\textbf{Autor:} Jefter Santiago \hfill \textbf{PROJETO 1 : \emph{Análise espectral por transformadas de fourier}}   \\
+\#USP: 12559016 \\
+\normalsize Curso: Física Estatística Computacional 
+Prof. F. C. Alcaraz \hfill Data de entrega: 23/03/2024 \\
+\noindent\rule{7in}{2.8pt}
+
+
+\section{Transformada de Fourier discreta}
+
+\section{Gerando séries}
+
+\begin{equation}
+  y_i = a_1 \cos (\omega_1 t_i)   + a_2 \sin (\omega_2 t_i) , t_i = i \cdot  \Delta t , i = 1, \cdots , N
+  \label{eq:series}
+\end{equation}
+
+\subsection{$N = 200, \Delta t = 0.04, a_1 = 2, a_2 = 4, \omega_1 = 4\pi (Hz), \omega_2 = 2.5 \pi (Hz)$}
+\subsection{$N = 200, \Delta t = 0.04, a_1 = 3, a_2 = 2, \omega_1 = 4\pi (Hz), \omega_2 = 2.5 \pi (Hz)$}
+\subsection{$N = 200, \Delta t = 0.4, a_1 = 2, a_2 = 4, \omega_1 = 4\pi (Hz), \omega_2 = 0.2 \pi (Hz)$}
+\subsection{$N = 200, \Delta t = 0.04, a_1 = 3, a_2 = 2, \omega_1 = 4\pi (Hz), \omega_2 = 0.2 \pi (Hz)$}
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main.tex"
+%%% End:
