@@ -1,31 +1,21 @@
-!     Testes de tempo para algoritmo da transformada de Fourier.
-      implicit real*8(a-h, o-y)
-      implicit complex*16(z-z)
-      dimension N(1:4)
-      parameter(N = (/50, 100, 200, 400/))
-      parameter(pi = acos(-1.0e0))
-      zi = (0.0, 1.0)
 
+      integer :: start_time, end_time, time, clock_rate
 
-!     Parametros do sinal
-      dt = 0.04
-      a1 = 2.0e0
-      a2 = 4.0e0
-      w1 = 4.0e0*pi
-      w2 = 2.5e0*pi
-
-!     Gera o sinal
-
+!     Get the clock rate
+      call system_clock(count_rate=clock_rate)
       
-!     Calcula transformada
+!     Get the start time
+      call system_clock(start_time)
 
+!     Your code to measure the execution time goes here
+!     For example, a loop that takes some time
+      do i = 1, 1000000
+!     Some computational code
+      end do
 
-
+!     Get the end time
+      call system_clock(end_time)
       
-      
-
-
+!     Calculate the elapsed time
+      time = end_time - start_time
       end
-      
-      
-
