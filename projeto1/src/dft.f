@@ -6,6 +6,7 @@
       dimension zYn(N)
       zi = (0.0, 1.0)
 
+
       open(10, file="output-signal1.dat")
 
       t = 0.0e0
@@ -37,4 +38,7 @@
          write(12, *) m * dt, real(zYm)
       end do
       close(12)
+
+
+
       end

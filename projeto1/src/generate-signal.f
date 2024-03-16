@@ -30,6 +30,8 @@
          write(40, *)  ti2, a12*cos(w1*ti2) + a22*sin(w22*ti2) 
          write(50, *)  ti1, a11*cos(w1*ti1) + a21*sin(1.4e0*pi*ti1) 
          write(60, *)  ti1, a11*cos(4.2*pi*ti1) + a21*sin(1.4e0*pi*ti1) 
+
+         print *, ti1
       end do
       close(10)
       close(20)

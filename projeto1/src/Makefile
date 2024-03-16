@@ -36,5 +36,5 @@ plot-%:
 	@rm *-inc*eps* *.log *.tex *.aux
 
 clean:
-	@rm *.exe *.dat 
-	@rm *-inc*eps* *.log *.tex *.aux
+	@rm *.exe *.dat  *.fort
+	@rm *-inc*eps* *.log *.tex *.aux *eps
