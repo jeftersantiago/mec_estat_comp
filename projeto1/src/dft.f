@@ -6,26 +6,26 @@
       dimension zYn(N)
       zi = (0.0, 1.0)
 
-      open(1, file="output-signal-A.dat")
-      open(2, file="output-signal-B.dat")
-      open(3, file="output-signal-C.dat")
-      open(4, file="output-signal-D.dat")
-      open(5, file="output-signal-E.dat")
-      open(6, file="output-signal-F.dat")
+      open(1, file="tarefa-2/output-signal-A.dat")
+      open(2, file="tarefa-2/output-signal-B.dat")
+      open(3, file="tarefa-2/output-signal-C.dat")
+      open(4, file="tarefa-2/output-signal-D.dat")
+      open(5, file="tarefa-2/output-signal-E.dat")
+      open(6, file="tarefa-2/output-signal-F.dat")
 
-      open(7, file="output-dft-A.dat")
-      open(8, file="output-dft-B.dat")
-      open(9, file="output-dft-C.dat")
-      open(10, file="output-dft-D.dat")
-      open(11, file="output-dft-E.dat")
-      open(12, file="output-dft-F.dat")
+      open(7, file="tarefa-1/output-dft-A.dat")
+      open(8, file="tarefa-1/output-dft-B.dat")
+      open(9, file="tarefa-1/output-dft-C.dat")
+      open(10, file="tarefa-1/output-dft-D.dat")
+      open(11, file="tarefa-1/output-dft-E.dat")
+      open(12, file="tarefa-1/output-dft-F.dat")
 
-      open(13, file="output-inv-dft-A.dat")
-      open(14, file="output-inv-dft-B.dat")
-      open(15, file="output-inv-dft-C.dat")
-      open(16, file="output-inv-dft-D.dat")
-      open(17, file="output-inv-dft-E.dat")
-      open(18, file="output-inv-dft-F.dat")
+      open(13, file="tarefa-4/output-inv-dft-A.dat")
+      open(14, file="tarefa-4/output-inv-dft-B.dat")
+      open(15, file="tarefa-4/output-inv-dft-C.dat")
+      open(16, file="tarefa-4/output-inv-dft-D.dat")
+      open(17, file="tarefa-4/output-inv-dft-E.dat")
+      open(18, file="tarefa-4/output-inv-dft-F.dat")
 
       do k = 1, 6
          t = 0.0e0
@@ -42,7 +42,8 @@
                zYl = zYl+signal(m)*zeta**(m*l)
             end do
             zYn(l) = zYl
-            write(k+6, *) l/(N*dt*2*pi),real(zYl),aimag(zYl)
+            zYl = zYl
+            write(k+6, *) l/(N*dt),real(zYl),aimag(zYl)
          end do
          close(k+6)
          
