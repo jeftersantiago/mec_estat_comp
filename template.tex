@@ -13,6 +13,22 @@
 \usepackage{titling}
 \usepackage{titlesec}
 
+\usepackage[brazil]{babel}
+
+\definecolor{LightGray}{gray}{0.97}
+\usepackage{minted}
+
+\usepackage{xcolor} % to access the named colour LightGray
+
+\setminted[fortran]{  framesep=2mm,
+  baselinestretch=1.2,
+  bgcolor=LightGray,
+  fontsize=\footnotesize,
+  linenos}
+
+
+
+
 \titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{hrule}[\titlerule] 
 \titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{} 
 \renewcommand\thesubsection{\Alph{subsection}}
