@@ -1,31 +1,16 @@
 !     Simulação para ondas ideias
       implicit real*8(a-h, o-y)
-
-!     Grid de estados da computacao:
-!     1 -> Anterior
-!     2 -> Atual
-!     3 -> Proximo
-      dimension grid(100, 3)
-
+      dimension grid(1000, 3)
       ! L 
       s = 1.0d0
       c = 300.0d0
-
-      r = 0.25d0
-      nx = 100
-
+      r = 0.5d0
+      nx = 1000
       dx = s / (nx*1.d0)
-
       dt = r * dx / c
-      t = 0.02
+      t = 0.01
       nt = floor(t/dt)
-
-      print *, "dx = ", dx
-      print *, "dt = ", dt
-      print *, "nT = ", nt
-
-      open(unit = 1, file = "saida-tarefa1-c.dat")
-
+      open(unit = 1, file = "saida-tarefa1-a.dat")
       grid(:, 3) = 0.e0
 !     aplica as condicoes iniciais ao grid
 !     t = 0
@@ -47,13 +32,13 @@
 
       subroutine write_to_file(grid, nx)
       implicit real*8(a-h, o-y)
-      dimension grid(100, 3)
+      dimension grid(1000, 3)
       write(1, '(3000F16.8)') (grid(i, 2), i=1, nx)
       end subroutine write_to_file
 
       subroutine drive_pulse(grid, nx, r)
       implicit real*8(a-h, o-y)
-      dimension grid(100, 3)
+      dimension grid(1000, 3)
 !     y_next = 2(1-r^2)y_curr + r^2[y(t+1,n)+y(t-1,n)] - y_prev
       grid(1, 3) = grid(1, 2)
       grid(nx,3) = grid(nx, 2)
@@ -74,14 +59,3 @@
 !     Funcao de pinça
       Y0 = exp(-((x-s/3)**2)/(s/30)**2)
       end
-
-
-      function Y0_pinca(x, s)
-      end
-
-
-
-
-
-
-

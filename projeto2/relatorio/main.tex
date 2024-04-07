@@ -10,7 +10,7 @@
 % \usepackage{mdframed}
 \usepackage{indentfirst}
 \usepackage{hyperref}
-% \usepackage{txfonts}
+\usepackage{txfonts}
 \usepackage{amsmath}
 \usepackage{titling}
 \usepackage{titlesec}
@@ -39,9 +39,6 @@
 Prof. F. C. Alcaraz \hfill Data de entrega: 06/04/2024\\
 \noindent\rule{7in}{2.8pt}
 
-% \begin{abstract}
-% \end{abstract}
-
 
 \section{Discretização da Equação de Onda}
 Nesse trabalhamo buscamos estudar a equação do onda em 1D, para isso partimos da equação
@@ -63,7 +60,6 @@ na equação abaixo
 
 \begin{equation}
   \mathcal{Y}(i, n+1) = 2 \left( 1 - r^2 \right) \mathcal{Y}(i, n) + r^2 \left( \mathcal{Y}(i+1,n) + \mathcal{Y}(i-1,n) \right) - \mathcal{Y}(i,n-1)
-  + \mathcal{O}(\Delta x^2) + \mathcal{O}()
   \label{eq:ondas_discreta}
 \end{equation}
 
@@ -79,7 +75,8 @@ presas em uma caixa, ou seja, nas extremidades do nosso espaço vale que $\mathc
 comprimento $L$ qualquer e $d \mathcal{Y}(x, t = 0)/ dt = 0$. 
 
 
-\subsection{Instabilidade numérica}
+\subsection{Estabilidade numérica}
+\label{sec:estabilidade}
 A escolha dos menores \( \Delta x \) e \( \Delta t \) em geral levam a execuções mais estáveis. Porém, quando
 trabalhamos com dois passos diferentes surgem algumas possíveis instabilidades. Buscando simplificar
 essas análises escrevemos o fator $r$
@@ -100,20 +97,28 @@ menos interações já que os valores de $Y$ divergem muito rapidamente. Então 
 para demonstrarmos esta instabilidade.
 
 
-Utilizamos valores fixos de \( \Delta x \), escolhidos com base no que funciona melhor para cálculo de
-derivadas, vistas na disciplina de \emph{Introdução à Física Computacional}. Com isso
-estimamos os valores de \( \Delta t \) para que o \( r \) seja o nosso parâmetro de estabilidade do das simulações.
-
-
 \subsection{Erro associado à simulação}
+\label{sec:erro}
 
+Pela relação (\ref{eq:ondas_discreta}), temos um erro associado à \( x \) que buscamos
+minimizar. No trabalho estamos usando números de precisão de 12 e portanto, o termo de
+erro da derivada segunda é a ordem que ``escondemos'' na equação de ondas discretizada
+
+\begin{equation}
+  \mathcal{E}(\Delta x) =  \Delta x^2 + \frac{10^{-12}}{(\Delta x)^2}
+\end{equation}
+
+o ponto de mínimo desse erro é em torno de \( \Delta x = 10^{-3} \), portanto esse é o nosso mínimo.
+
+Partindo desse valor para \( \Delta x\) fixo trabalhamos variando os outros e observando qual a
+influência deles na instabilidade do algoritmo.
 
 \section{Simulações de ondas ideais}
 
 
-Como foi discutido anteriormente(\ref{})\footnote{Marcar aqui a sessão/subsessão.} o $\Delta x$ escolhido
+Como foi discutido anteriormente (\ref{sec:erro}) o $\Delta x$ escolhido
 foi fixado para todas simulações. Além disso a velocidade de nossas ondas também é mantida constante
-igual à \( c = 300\) (m/s)  . Com isso podemos variar os paramêtros de \( r \) e \( \Delta t \). 
+igual à \( c = 300\) (m/s). Com isso podemos variar os paramêtros de \( r \) e \( \Delta t \). 
 
 Foi escolhido um periodo total\footnote{periodo?} de \( t = 0,01\)(s)  de forma que, para uma onda à velocidade da luz
 dentro de uma caixa de \( 1\)(m) hajam 3 reflexões.
@@ -135,34 +140,19 @@ onde no código foi denotado por  \verb|Y0(x,s)|.
 Segue abaixo abaixo a estrutura central do programa de simulação de ondas:
 
 \begin{minted}{fortran}[!]
- !     Simulação para ondas ideias
+!     Simulação para ondas ideias
       implicit real*8(a-h, o-y)
-
-!     Grid de estados da computacao:
-!     1 -> Anterior
-!     2 -> Atual
-!     3 -> Proximo
-      dimension grid(100, 3)
-
+      dimension grid(1000, 3)
       ! L 
       s = 1.0d0
       c = 300.0d0
-
       r = 1.0d0
-      nx = 100
-
+      nx = 1000
       dx = s / (nx*1.d0)
-
       dt = r * dx / c
       t = 0.01
       nt = floor(t/dt)
-
-      print *, "dx = ", dx
-      print *, "dt = ", dt
-      print *, "nT = ", nt
-
       open(unit = 1, file = "saida-tarefa1-a.dat")
-
       grid(:, 3) = 0.e0
 !     aplica as condicoes iniciais ao grid
 !     t = 0
@@ -180,17 +170,17 @@ Segue abaixo abaixo a estrutura central do programa de simulação de ondas:
          call write_to_file(grid, nx)
       end do
       close(1)
-      end 
+      end
 
       subroutine write_to_file(grid, nx)
       implicit real*8(a-h, o-y)
-      dimension grid(100, 3)
+      dimension grid(1000, 3)
       write(1, '(3000F16.8)') (grid(i, 2), i=1, nx)
       end subroutine write_to_file
 
       subroutine drive_pulse(grid, nx, r)
       implicit real*8(a-h, o-y)
-      dimension grid(100, 3)
+      dimension grid(1000, 3)
 !     y_next = 2(1-r^2)y_curr + r^2[y(t+1,n)+y(t-1,n)] - y_prev
       grid(1, 3) = grid(1, 2)
       grid(nx,3) = grid(nx, 2)
@@ -203,23 +193,19 @@ Segue abaixo abaixo a estrutura central do programa de simulação de ondas:
 !     swap
       grid(:, 1) = grid(:, 2)
       grid(:, 2) = grid(:, 3)
-      end subroutine drive_pulse      
+      end subroutine drive_pulse
 \end{minted}
-\footnote{Trazer uma discussão sobre escolhas de implementação -> por exemplo uso do grid.}
-
 
 Para o programa as simulações de ondas em uma corda temos a condição inicial dada por
 (\ref{eq:y_0}), implementada por
-
 \begin{minted}{fortran}[!]
       function Y0(x, s)
       implicit real*8(a-h, o-y)
-      Y0 = exp(-((x-
-    \item s/3)**2)/(s/30)**2)
+      Y0 = exp(-((x-s/3)**2)/(s/30)**2)
       end
 \end{minted}
 
-condição aplicada à todo o grid na linhas linhas $32$ à $34$\footnote{Ficar de olho se isso n vai mudar...} do programa.
+condição aplicada à todo o grid na linhas linhas $17$ à $24$ do programa.
 
 \clearpage
 \subsection{Caso de \( r = 1 \) }
@@ -234,7 +220,7 @@ Ocorrem interferências de forma construtiva, pois pelas condições impostas am
 do mesmo lado da reflexão e se somam formando a amplitude completa inicial.
 A configuração inicial do sistema vai se repetir na iteração número $200$, isto é, no tempo
 \( 200 \cdot \Delta t \). Como nosso \( \Delta t\) utilizado é dado pela (\ref{eq:fator_r}), então \( \Delta t = 1 \cdot
-\Delta x / 300  \approx 3 \cdot 10^{-5} \) será a configuração inicial se repete em \( t = 0,006 \) (s). Esse
+\Delta x / 300  \approx 3 \cdot 10^{-5} \) será a configuração inicial se repete em \( t = 0,06 \) (s). Esse
 é o tempo necessário para cada um dos pacotes menores percorrerem \( 2 L\). Para um \( L \)
 qualquer, temos então \( t = 2 L / c \) será o tempo em que a situação inicial surge novamente.
 
@@ -243,61 +229,77 @@ qualquer, temos então \( t = 2 L / c \) será o tempo em que a situação inici
     \centering
     \centering
     \includegraphics[width=0.45\textwidth]{graf-tarefa1-a}
-    \caption{Evolução temporal da onda em para $100$ iterações. Apenas metade dessas iterações estão
-      estão nessa figura para melhor visualização das frentes de ondas.}
+    \caption{Evolução temporal da onda em $1000$ iterações. Apenas metade dessas iterações  estão nessa figura para melhor visualização das frentes de ondas.}
     \label{fig:tarefa1-a}
 \end{figure}
 
 \clearpage
 \subsection{Caso de \( r = 2 \) }
-
+\label{sec:caso_r_2}
 
 Nesse caso podemos observar a instabilidade desse que surge para valores de \( r > 1  \).
 A amplitude das ondas diverge muito rápido e na simulação bastaram pouquissímas iterações
-para que visualizarmos o comportamento anômalo \footnote{boa palavra?} da onda.
+para que visualizarmos o comportamento anômalo  da onda.
 
-O algoritmo diverge para \( r > 1 \) pois \footnote{Explicar pq explode}
+O algoritmo diverge para \( r > 1 \) pois, como foi discutido (\ref{sec:estabilidade}), a melhor
+estabilidade que podemos ter é no caso em que \( r = 1 \). Podemos pensar em \( r = 2 \) como uma
+diminuição do tamanho do passo \( \Delta x\) e como isso ocorre para um \( \Delta t \) fixo (já que $r$ mudou)
+as pertubações que percorrem esse espaço à cada passo tem velocidade \( c \) em \( r = 1 \) passam a
+ter velocidade menor que \( c \) e portanto cada iteração vai acumular valores cada vez maiores
+vindos dessas pertubações que se somam, fazendo a amplitude divergir rapidamente.
+
 
 \begin{figure}[h!] 
     \centering
-    \centering
+    \caption{Divergência da equação da solução para \( r = 2 \).
+    }
     \includegraphics[width=0.4\textwidth]{graf-tarefa1-b}
-    \caption{}
     \label{fig:tarefa1-b}
 \end{figure}
 
+\clearpage
 \subsection{Caso de \( r = 0.25 \) }
 
-A implementação com valores de \( r < 1 \) apresentam certa estabilidade, porém para tempos
-grandes é possível observar deformações no pacote gaussiano. E além disso, para tempos pequenos
-apesar de simular bem, não é eficiente computacionalmente, já que executa muito mais iterações. Isso porque, para
+A implementação com valores de \( r < 1 \) apresentam certa estabilidade, como pode ser observado
+na figura (\ref{fig:tarefa1-c1}), porém para tempos grandes surgem deformações no
+pacote gaussiano. E além disso, para tempos pequenos apesar de simular bem, não é eficiente
+computacionalmente, já que executa muito mais iterações que no caso de \( r = 1 \)\footnote{Nota-se, que assim como
+        foi dito, o número de iterações aumenta.  Para \( r = 0.25 \), ou seja \( 1/4 \) do \( r \) anterior, o número de iterações quadriplica.}
+. Isso porque, para
 \( \Delta x \), \( c \) e \( r \) fixos, precisamos alterar o parâmetro de \( \Delta t \), o que aumenta
 o número de iterações do nosso programa.
+
+Para conseguir observar o surgimento das deformações foi necessário diminuir a precisão da grade
+para \( 10^{-2} \), pois utilizando o \( \Delta x \) de ordem \( 10^{-3} \) não consegui observar as
+instabilidades. Foi testado para diversos tempos e não exibiu em nenhum momento deformações como as
+da (\ref{fig:tarefa1-c2}). Como podemos ver, a escolha de \( \Delta x\) impactou bastante o desempenho
+dessa simulação.
 
 \begin{figure}[h!] 
     \centering
     \caption{Simulação para \( r = 0,25 \) nas primeiras iterações.}
-    \includegraphics[width=0.4\textwidth]{graf-tarefa1-c1}
+    \includegraphics[width=0.35\textwidth]{graf-tarefa1-c1}
     \label{fig:tarefa1-c1}
 \end{figure}
 
 
-A figura (\ref{fig:tarefa1-c}) foi construída a partir da simulação com \( r = 0.25 \) e \( t = 0,02
-\). No gráfico temos o comportamento da onda para um tempo grande, após muita iterações e podemos
+
+A figura (\ref{fig:tarefa1-c2}) foi construída a partir da simulação com \( r = 0.25 \) e \( t = 0,02
+\) e com \( \Delta x = 10^{-2}\). No gráfico temos o comportamento da onda para um tempo grande, após muita iterações e podemos
 ver claramente as deformações do pacote gaussiano.
 
-\footnote{Falar sobre o número de iterações ser bem maior partindo da expressão do (\ref{eq:fator_r})}
 \begin{figure}[h!] 
     \centering
     \caption{Comportamento da onda para um tempo grande.}
-    \includegraphics[width=0.4\textwidth]{graf-tarefa1-c}
+    \includegraphics[width=0.50\textwidth]{graf-tarefa1-c2}
     \label{fig:tarefa1-c2}
 \end{figure}
 
+\clearpage
 \section{Simulação de ondas na corda de violão}
 
 Já o perfil inicial de pinça, na corda do violão, foi chamado de \verb|Y0_pinca(x, s)|, e pela
-figura dada no projeto temos que o perfil inicial da onda deverá ser (\ref{})\footnote{Linkar a sessão que discuto aquilo aqui.}
+figura dada no projeto temos que o perfil inicial da onda deverá ser 
 
 \begin{equation}
   \mathcal{Y}(x, 0) = \mathcal{Y}_0(x) = \begin{cases}
@@ -308,8 +310,27 @@ figura dada no projeto temos que o perfil inicial da onda deverá ser (\ref{})\f
 \end{equation}
 
 
+O código da implementação dessa simulação é diferente em relação ao primeiro apenas nas condições
+iniciais. Portanto apenas compilarei no relatório esse trecho diferente dos programas:
+
+\begin{minted}{fortran}[!]
+      function Y0_pinca(x, s)
+      implicit real*8(a-h, o-y)
+      if(x .le. s/4) then
+         Y0_pinca = x
+      else
+         Y0_pinca = (1.0e0/3.0e0)*(s - x)
+      end if
+      end
+\end{minted}
+
 
 \subsection{Caso de \( r = 1 \) }
+Nesse caso o pacote não se deforma e como podemos ver, os pacotes menores sofrem reflexões
+nas próximo das iterações em torno de $250$ e $780$, comportamento igual ao do primeiro caso observado
+anteriormente. E assim como nele, também vai haver repetição da configuração inicial em um tempo
+igual à \( t = 2L/c \), ou seja, ambos pacotes menores devem andar \( 2L \) antes de haver a
+repetição da situação inicial. E por fim, as interferências também são como antes: construtivas.
 
 \begin{figure}[h!] 
     \centering
@@ -322,31 +343,47 @@ figura dada no projeto temos que o perfil inicial da onda deverá ser (\ref{})\f
 
 \subsection{Caso de \( r = 2 \) }
 
+Esse caso é similar ao da tarefa anterior (\ref{sec:caso_r_2}). Nesse caso temos a especifidade da
+divergencia acontecer muito mais rapido que no anterior. Suponho que isso esteja relacionado ao
+perfil inicial da onda, já que nesse perfil temos muitos pontos diferentes de zero, ao contrário do
+perfil dos pacotes gaussianos. Esses valores se acumulam mais rapidamente que na
+(\ref{sec:caso_r_2}). Além disso a divergência parece acontecer somente no ponto \( x = L/3 \).
 
-\footnote{Explicar pq explode}
+O motivo disso pode ser justamente as condições iniciais, já que na gaussiana boa parte dos valores
+inciais da grade é nulo, e na condição de pinça (\ref{eq:y_0_pinca}) temos valores maiores que
+contribuem para as próximas iterações que como vimos são ampliadas muitos rapidamente.
+
 \begin{figure}[h!] 
     \centering
-    \centering
-    \includegraphics[width=0.4\textwidth]{graf-tarefa2-b}
-    \caption{}
+    \caption{Simulação das ondas divergindo para \( r = 2 \) em poucas iterações.}
+    \includegraphics[width=0.35\textwidth]{graf-tarefa2-b}
     \label{fig:subB}
 \end{figure}
 
+
+\clearpage
 \subsection{Caso de \( r = 0.25 \) }
 
-
-
-\footnote{Falar sobre o número de iterações ser bem maior partindo da expressão do (\ref{eq:fator_r})}
 \begin{figure}[h!] 
     \centering
-    \centering
-    \includegraphics[width=0.4\textwidth]{graf-tarefa2-c}
-    \caption{}
-    \label{fig:subC}
+    \caption{Simulação das ondas no violão para \( r = 0,25 \). }
+    \includegraphics[width=0.4\textwidth]{graf-tarefa2-c1}
+    \label{fig:tarefa2_c1}
 \end{figure}
 
-\footnote{Discutir solução analitica do problema da lista de Fismat -> talvez colocar ele no projeto
-  e computar a série para comparação.}
+Assim como na tarefa anterior também foi simulado o sistema para \( \Delta x = 10^{-2} \) para tentar
+observar as instabilidades. Para \( \Delta x = 10^{-3} \) não foi possível ver deformações para todos
+tempos testados.
+\begin{figure}[h!] 
+    \centering
+    \caption{Gráfico simplificado das deformações de ondas para condição inicial (\ref{eq:y_0_pinca}).}
+    \includegraphics[width=0.4\textwidth]{graf-tarefa2-c22}
+    \label{fig:tarefa2_c}
+\end{figure}
+
+Apesar de difícil de perceber, podemos notar as deformações na propagação, sobretudo nas regioes de
+\( x \approx 0,3 \) e \( x \approx 0,7\) que são pontos de interferência.
+
 \end{document}
 %%% Local Variables:
 %%% mode: latex
