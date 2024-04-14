@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.3.23)  26 MAR 2024 14:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024/Arch Linux) (preloaded format=pdflatex 2024.3.23)  12 APR 2024 20:09
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -761,60 +761,65 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 )
 runsystem(mkdir -p _minted-main)...executed.
 
+
+
+Package hyperref Warning: Invalid language identifier `Portuguese'
+(hyperref)                for option `pdflang' (RFC 3066) on input line 45.
+
+Package hyperref Info: Option `colorlinks' set `true' on input line 45.
 runsystem(command -v pygmentize && touch main.aex)...executed.
 
 runsystem(rm main.aex)...executed.
 
-LaTeX Font Info:    Trying to load font information for OT1+txr on input line 3
-5.
-
+LaTeX Font Info:    Trying to load font information for OT1+txr on input line 4
+8.
 (/usr/share/texmf-dist/tex/latex/txfonts/ot1txr.fd
 File: ot1txr.fd 2000/12/15 v3.1
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 35.
+LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 48.
 LaTeX Font Info:    Trying to load font information for OML+txmi on input line 
-35.
+48.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/omltxmi.fd
 File: omltxmi.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 48.
 LaTeX Font Info:    Trying to load font information for OMS+txsy on input line 
-35.
+48.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/omstxsy.fd
 File: omstxsy.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 35.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 48.
 LaTeX Font Info:    Trying to load font information for OMX+txex on input line 
-35.
+48.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/omxtxex.fd
 File: omxtxex.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 35.
-LaTeX Font Info:    Trying to load font information for U+txexa on input line 3
-5.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 48.
+LaTeX Font Info:    Trying to load font information for U+txexa on input line 4
+8.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxexa.fd
 File: utxexa.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -876,39 +881,39 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 35.
+Package hyperref Info: Link coloring ON on input line 48.
  (./main.out)
 (./main.out)
 \@outlinefile=\write5
 \openout5 = `main.out'.
 
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <12> not available
-(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 37.
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 50.
 LaTeX Font Info:    Font shape `OT1/txr/b/it' in size <12> not available
-(Font)              Font shape `OT1/txr/bx/it' tried instead on input line 37.
+(Font)              Font shape `OT1/txr/bx/it' tried instead on input line 50.
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <10> not available
-(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 43.
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 56.
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <14.4> not available
-(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 52.
-LaTeX Font Info:    Trying to load font information for U+txmia on input line 5
-7.
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 65.
+LaTeX Font Info:    Trying to load font information for U+txmia on input line 7
+0.
  (/usr/share/texmf-dist/tex/latex/txfonts/utxmia.fd
 File: utxmia.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txsya on input line 5
-7.
+LaTeX Font Info:    Trying to load font information for U+txsya on input line 7
+0.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxsya.fd
 File: utxsya.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txsyb on input line 5
-7.
+LaTeX Font Info:    Trying to load font information for U+txsyb on input line 7
+0.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxsyb.fd
 File: utxsyb.fd 2000/12/15 v3.1
 )
-LaTeX Font Info:    Trying to load font information for U+txsyc on input line 5
-7.
+LaTeX Font Info:    Trying to load font information for U+txsyc on input line 7
+0.
 
 (/usr/share/texmf-dist/tex/latex/txfonts/utxsyc.fd
 File: utxsyc.fd 2000/12/15 v3.1
@@ -917,7 +922,7 @@ File: utxsyc.fd 2000/12/15 v3.1
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fonts
 /enc/dvips/base/8r.enc}]
 LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <10.95> not available
-(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 172.
+(Font)              Font shape `OT1/txr/bx/n' tried instead on input line 185.
 \openout3 = `main.pyg'.
 
 
@@ -928,7 +933,7 @@ LaTeX Font Info:    Font shape `OT1/txr/b/n' in size <10.95> not available
 \space \space #1
 }
                                                   
-l.176 \begin{minted}{fortran}[!]
+l.189 \begin{minted}{fortran}[!]
                                 
 This input will be discarded. Hit <return> to continue.
 
@@ -946,22 +951,22 @@ LaTeX Font Info:    Font shape `OT1/txtt/m/it' in size <9> not available
 <./graficos/signal-A.pdf, id=58, 284.46274pt x 284.46274pt>
 File: ./graficos/signal-A.pdf Graphic file (type pdf)
 <use ./graficos/signal-A.pdf>
-Package pdftex.def Info: ./graficos/signal-A.pdf  used on input line 237.
+Package pdftex.def Info: ./graficos/signal-A.pdf  used on input line 250.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
 <./graficos/signal-B.pdf, id=59, 284.46274pt x 284.46274pt>
 File: ./graficos/signal-B.pdf Graphic file (type pdf)
 <use ./graficos/signal-B.pdf>
-Package pdftex.def Info: ./graficos/signal-B.pdf  used on input line 243.
+Package pdftex.def Info: ./graficos/signal-B.pdf  used on input line 256.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
 <./graficos/signal-C.pdf, id=62, 284.46274pt x 284.46274pt>
 File: ./graficos/signal-C.pdf Graphic file (type pdf)
 <use ./graficos/signal-C.pdf>
-Package pdftex.def Info: ./graficos/signal-C.pdf  used on input line 259.
+Package pdftex.def Info: ./graficos/signal-C.pdf  used on input line 272.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
 <./graficos/signal-D.pdf, id=63, 284.46274pt x 284.46274pt>
 File: ./graficos/signal-D.pdf Graphic file (type pdf)
 <use ./graficos/signal-D.pdf>
-Package pdftex.def Info: ./graficos/signal-D.pdf  used on input line 265.
+Package pdftex.def Info: ./graficos/signal-D.pdf  used on input line 278.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
 
 
@@ -971,12 +976,12 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <./graficos/signal-E.pdf, id=112, 284.46274pt x 284.46274pt>
 File: ./graficos/signal-E.pdf Graphic file (type pdf)
 <use ./graficos/signal-E.pdf>
-Package pdftex.def Info: ./graficos/signal-E.pdf  used on input line 279.
+Package pdftex.def Info: ./graficos/signal-E.pdf  used on input line 292.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
 <./graficos/signal-F.pdf, id=113, 284.46274pt x 284.46274pt>
 File: ./graficos/signal-F.pdf Graphic file (type pdf)
 <use ./graficos/signal-F.pdf>
-Package pdftex.def Info: ./graficos/signal-F.pdf  used on input line 284.
+Package pdftex.def Info: ./graficos/signal-F.pdf  used on input line 297.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
 \openout3 = `main.pyg'.
 
@@ -987,33 +992,33 @@ E.pygtex)
 <./graficos/output-dft-A.pdf, id=194, 284.46274pt x 284.46274pt>
 File: ./graficos/output-dft-A.pdf Graphic file (type pdf)
 <use ./graficos/output-dft-A.pdf>
-Package pdftex.def Info: ./graficos/output-dft-A.pdf  used on input line 346.
+Package pdftex.def Info: ./graficos/output-dft-A.pdf  used on input line 359.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
 <./graficos/output-dft-B.pdf, id=197, 284.46274pt x 284.46274pt>
 File: ./graficos/output-dft-B.pdf Graphic file (type pdf)
 <use ./graficos/output-dft-B.pdf>
-Package pdftex.def Info: ./graficos/output-dft-B.pdf  used on input line 353.
+Package pdftex.def Info: ./graficos/output-dft-B.pdf  used on input line 366.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
 <./graficos/output-dft-C.pdf, id=206, 284.46274pt x 284.46274pt>
 File: ./graficos/output-dft-C.pdf Graphic file (type pdf)
 <use ./graficos/output-dft-C.pdf>
-Package pdftex.def Info: ./graficos/output-dft-C.pdf  used on input line 370.
+Package pdftex.def Info: ./graficos/output-dft-C.pdf  used on input line 383.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
 <./graficos/output-dft-D.pdf, id=209, 284.46274pt x 284.46274pt>
 File: ./graficos/output-dft-D.pdf Graphic file (type pdf)
 <use ./graficos/output-dft-D.pdf>
-Package pdftex.def Info: ./graficos/output-dft-D.pdf  used on input line 377.
+Package pdftex.def Info: ./graficos/output-dft-D.pdf  used on input line 390.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
  [5 <./graficos/output-dft-A.pdf> <./graficos/output-dft-B.pdf>]
 <./graficos/output-dft-E.pdf, id=258, 284.46274pt x 284.46274pt>
 File: ./graficos/output-dft-E.pdf Graphic file (type pdf)
 <use ./graficos/output-dft-E.pdf>
-Package pdftex.def Info: ./graficos/output-dft-E.pdf  used on input line 409.
+Package pdftex.def Info: ./graficos/output-dft-E.pdf  used on input line 422.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
 <./graficos/output-dft-F.pdf, id=261, 284.46274pt x 284.46274pt>
 File: ./graficos/output-dft-F.pdf Graphic file (type pdf)
 <use ./graficos/output-dft-F.pdf>
-Package pdftex.def Info: ./graficos/output-dft-F.pdf  used on input line 416.
+Package pdftex.def Info: ./graficos/output-dft-F.pdf  used on input line 429.
 (pdftex.def)             Requested size: 236.35544pt x 236.36009pt.
 
 
@@ -1029,32 +1034,32 @@ E.pygtex)
 <./graficos/inv-dft-A.pdf, id=361, 284.46274pt x 284.46274pt>
 File: ./graficos/inv-dft-A.pdf Graphic file (type pdf)
 <use ./graficos/inv-dft-A.pdf>
-Package pdftex.def Info: ./graficos/inv-dft-A.pdf  used on input line 498.
+Package pdftex.def Info: ./graficos/inv-dft-A.pdf  used on input line 511.
 (pdftex.def)             Requested size: 157.57297pt x 157.57484pt.
 <./graficos/inv-dft-B.pdf, id=362, 284.46274pt x 284.46274pt>
 File: ./graficos/inv-dft-B.pdf Graphic file (type pdf)
 <use ./graficos/inv-dft-B.pdf>
-Package pdftex.def Info: ./graficos/inv-dft-B.pdf  used on input line 509.
+Package pdftex.def Info: ./graficos/inv-dft-B.pdf  used on input line 522.
 (pdftex.def)             Requested size: 210.09193pt x 210.09544pt.
 <./graficos/inv-dft-C.pdf, id=363, 284.46274pt x 284.46274pt>
 File: ./graficos/inv-dft-C.pdf Graphic file (type pdf)
 <use ./graficos/inv-dft-C.pdf>
-Package pdftex.def Info: ./graficos/inv-dft-C.pdf  used on input line 514.
+Package pdftex.def Info: ./graficos/inv-dft-C.pdf  used on input line 527.
 (pdftex.def)             Requested size: 210.09193pt x 210.09544pt.
 <./graficos/inv-dft-D.pdf, id=364, 284.46274pt x 284.46274pt>
 File: ./graficos/inv-dft-D.pdf Graphic file (type pdf)
 <use ./graficos/inv-dft-D.pdf>
-Package pdftex.def Info: ./graficos/inv-dft-D.pdf  used on input line 518.
+Package pdftex.def Info: ./graficos/inv-dft-D.pdf  used on input line 531.
 (pdftex.def)             Requested size: 210.09193pt x 210.09544pt.
 <./graficos/inv-dft-E.pdf, id=365, 284.46274pt x 284.46274pt>
 File: ./graficos/inv-dft-E.pdf Graphic file (type pdf)
 <use ./graficos/inv-dft-E.pdf>
-Package pdftex.def Info: ./graficos/inv-dft-E.pdf  used on input line 522.
+Package pdftex.def Info: ./graficos/inv-dft-E.pdf  used on input line 535.
 (pdftex.def)             Requested size: 210.09193pt x 210.09544pt.
 <./graficos/inv-dft-F.pdf, id=366, 284.46274pt x 284.46274pt>
 File: ./graficos/inv-dft-F.pdf Graphic file (type pdf)
 <use ./graficos/inv-dft-F.pdf>
-Package pdftex.def Info: ./graficos/inv-dft-F.pdf  used on input line 526.
+Package pdftex.def Info: ./graficos/inv-dft-F.pdf  used on input line 539.
 (pdftex.def)             Requested size: 210.09193pt x 210.09544pt.
  [8
 
@@ -1071,7 +1076,7 @@ E.pygtex) [10
 <./graficos/benchmarking2.pdf, id=481, 284.46274pt x 284.46274pt>
 File: ./graficos/benchmarking2.pdf Graphic file (type pdf)
 <use ./graficos/benchmarking2.pdf>
-Package pdftex.def Info: ./graficos/benchmarking2.pdf  used on input line 610.
+Package pdftex.def Info: ./graficos/benchmarking2.pdf  used on input line 623.
 (pdftex.def)             Requested size: 288.88243pt x 288.90675pt.
  [11 <./graficos/benchmarking2.pdf>] (./main.aux)
  ***********
@@ -1083,12 +1088,12 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 runsystem(rm main.pyg)...executed.
 
  )
-(\end occurred when \ifx on line 176 was incomplete) 
+(\end occurred when \ifx on line 189 was incomplete) 
 Here is how much of TeX's memory you used:
- 18613 strings out of 476056
- 316839 string characters out of 5793066
+ 18614 strings out of 476056
+ 316858 string characters out of 5793066
  1953187 words of memory out of 5000000
- 40382 multiletter control sequences out of 15000+600000
+ 40383 multiletter control sequences out of 15000+600000
  608233 words of font info for 150 fonts, out of 8000000 for 9000
  16 hyphenation exceptions out of 8191
  79i,10n,93p,466b,699s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1106,7 +1111,7 @@ usr/share/texmf-dist/fonts/type1/public/txfonts/txtt.pfb></usr/share/texmf-dist
 /fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/
 utmbi8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share
 /texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (11 pages, 341355 bytes).
+Output written on main.pdf (11 pages, 342225 bytes).
 PDF statistics:
  577 PDF objects out of 1000 (max. 8388607)
  419 compressed objects within 5 object streams

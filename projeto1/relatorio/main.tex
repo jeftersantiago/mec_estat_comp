@@ -26,15 +26,28 @@
   bgcolor=LightGray,
   fontsize=\footnotesize,
   linenos}
-
-
 \graphicspath{ {./graficos/} }
 \titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}[\titlerule] 
 \titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{} 
 % \renewcommand\thesubsection{\Alph{subsection}}
+
+\hypersetup{
+  pdfauthor={Jefter Santiago},
+  pdftitle={Projeto 1 - Análise Espectral por transformada de Fourier},
+%  pdfkeywords={},
+%  pdfsubject={Anotações métodos matemáticos aplicados à física},
+  pdfcreator={Jefter Santiago}, 
+  pdflang={Portuguese},
+  colorlinks=true,    % Color links instead of boxes
+  linkcolor=blue,     % Color of internal links
+  citecolor=green,    % Color of citation links
+  urlcolor=blue,      % Color of URLs
+}
+
+
 \begin{document}
 \noindent
-\large\textbf{Autor:} Jefter Santiago \hfill \textbf{PROJETO 1 : {\color{blue} \emph{Análise espectral por transformadas de fourier}}}   \\
+\large\textbf{Autor:} Jefter Santiago \hfill \textbf{PROJETO 1 : {\color{blue} \emph{Análise espectral por transformada de Fourier}}}   \\
 \#USP: 12559016 \\
 \normalsize Curso: Física Estatística Computacional \\
 Prof. F. C. Alcaraz \hfill Data de entrega: 23/03/2024 \\
@@ -105,7 +118,7 @@ Uma definição importante para se estudar o espectro dos sinais é a frequênci
 que trabalhamos com sinais obtidos em tempos \( \Delta t \), como vimos, basta $N/2 - 1$ pontos para
 descrever bem as componentes do sinal. O teorema da amostragem de Nyquist-Shannon nos diz qual a
 frequência máxima que uma componente de Fourier pode ter.
-\[ f =  \left( \frac{N}{2} - 1 \right) \left( N \Delta t\right) \approx \frac{1}{2\Delta t}\]
+\[ f =  \left( \frac{N}{2} - 1 \right)\bigg/ \left( N \Delta t\right) \approx \frac{1}{2\Delta t}\]
 
 \begin{equation}
   f_{\text{Nyquist}} \equiv \frac{1}{2 \Delta t}

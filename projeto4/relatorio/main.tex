@@ -1,0 +1,80 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{blindtext}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\usepackage{txfonts}
+\usepackage{amsmath}
+\usepackage{titling}
+\usepackage{titlesec}
+\usepackage[brazil]{babel}
+\definecolor{LightGray}{gray}{0.97}
+\usepackage{minted}
+\usepackage{xcolor} % to access the named colour LightGray
+
+\setminted[fortran]{  framesep=2mm,
+  baselinestretch=1.2,
+  bgcolor=LightGray,
+  fontsize=\footnotesize,
+  linenos}
+
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}[\titlerule] 
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{} 
+% \renewcommand\thesubsection{\Alph{subsection}}
+\graphicspath{ {./graficos/} }
+
+\begin{document}
+\noindent
+\large\textbf{Autor:} Jefter Santiago \hfill \textbf{Projeto 4 - {\color{blue}\emph{Modelos de Crescimento}}}   \\
+\#USP: 12559016 \\
+\normalsize Curso: Física Estatística Computacional \hfill 2024.1 \\
+Prof. F. C. Alcaraz \hfill Data de entrega: \\
+\noindent\rule{7in}{2.8pt}
+
+
+\section*{Anotações da aula}
+
+- bit de configuracao de uma posicao \( b_i = 0, 1 \) um bit de informacao p/ uma rede/cadeia
+\( i = 1, 2, \cdots , L \). 
+
+- configuracao do sistema \( C_t = \{ b_1^t, b_2^2, \cdots , b_L^t\} \) 
+
+- evolucao \( C_{t+1} = f(C_t) \), \( f \rightarrow \) regra de crescimento 
+- regra mais simples: \( b_i^{t + 1} = f(b_{i-1}^t, b_i^t, b_{i+1}^t)\) cada posição
+depende dos adjacentes.
+
+- Modelo Eden e DLA -> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main.tex"
+%%% End:
