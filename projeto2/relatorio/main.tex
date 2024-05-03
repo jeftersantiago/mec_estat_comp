@@ -1,5 +1,8 @@
-\documentclass[a4paper, 11pt]{article}
-\usepackage[margin=0.5in]{geometry}
+\documentclass[a4paper, 11pt]{tufte-handout}
+\usepackage[margin=0.1in]{geometry}
+\geometry{
+    textwidth=4.5in,
+}
 \usepackage{framed}
 \usepackage[brazil]{babel}
 \usepackage{graphicx}
@@ -7,10 +10,15 @@
 \usepackage{verbatim}
 \usepackage{blindtext}
 \usepackage{xcolor}
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
 % \usepackage{mdframed}
 \usepackage{indentfirst}
 \usepackage{hyperref}
-\usepackage{txfonts}
+% \usepackage{txfonts}
 \usepackage{amsmath}
 \usepackage{titling}
 \usepackage{titlesec}
@@ -31,8 +39,6 @@
 % \renewcommand\thesubsection{\Alph{subsection}}
 \graphicspath{ {./graficos/} }
 
-
-
 \hypersetup{
   pdfauthor={Jefter Santiago},
   pdftitle={Projeto 2 - Equações de Onda I},
@@ -45,16 +51,15 @@
   citecolor=green,    % Color of citation links
   urlcolor=blue,      % Color of URLs
 }
-
-
-
 \begin{document}
+\begin{fullwidth}
 \noindent
 \large\textbf{Autor:} Jefter Santiago \hfill \textbf{Projeto 2: {\color{blue}\emph{Equações de ondas I}}}   \\
 \#USP: 12559016 \\
 \normalsize Curso: Física Estatística Computacional \\
 Prof. F. C. Alcaraz \hfill Data de entrega: 06/04/2024\\
 \noindent\rule{7in}{2.8pt}
+\end{fullwidth}
 
 
 \section{Discretização da Equação de Onda}
@@ -90,7 +95,6 @@ Para finalizar a descrição do problema de propagação de ondas precisamos das
 contorno. Nesse projeto inicial foram feitas simulações em condições para propagação ideal de ondas
 presas em uma caixa, ou seja, nas extremidades do nosso espaço vale que $\mathcal{Y}(0) = \mathcal{Y}(L) = 0$, para um
 comprimento $L$ qualquer e $d \mathcal{Y}(x, t = 0)/ dt = 0$. 
-
 
 \subsection{Estabilidade numérica}
 \label{sec:estabilidade}
@@ -224,7 +228,7 @@ Para o programa as simulações de ondas em uma corda temos a condição inicial
 
 condição aplicada à todo o grid na linhas linhas $17$ à $24$ do programa.
 
-\clearpage
+
 \subsection{Caso de \( r = 1 \) }
 
 Como podemos ver na figura (\ref{fig:tarefa1-a}) a oscilação não apresenta nenhuma deformação, e
@@ -245,12 +249,12 @@ qualquer, temos então \( t = 2 L / c \) será o tempo em que a situação inici
 \begin{figure}[h!] 
     \centering
     \centering
-    \includegraphics[width=0.45\textwidth]{graf-tarefa1-a}
+    \includegraphics[width=0.5\linewidth]{graf-tarefa1-a}
     \caption{Evolução temporal da onda em $1000$ iterações. Apenas metade dessas iterações  estão nessa figura para melhor visualização das frentes de ondas.}
     \label{fig:tarefa1-a}
 \end{figure}
 
-\clearpage
+
 \subsection{Caso de \( r = 2 \) }
 \label{sec:caso_r_2}
 
@@ -270,11 +274,11 @@ vindos dessas pertubações que se somam, fazendo a amplitude divergir rapidamen
     \centering
     \caption{Divergência da equação da solução para \( r = 2 \).
     }
-    \includegraphics[width=0.4\textwidth]{graf-tarefa1-b}
+    \includegraphics[width=0.5\linewidth]{graf-tarefa1-b}
     \label{fig:tarefa1-b}
 \end{figure}
 
-\clearpage
+
 \subsection{Caso de \( r = 0.25 \) }
 
 A implementação com valores de \( r < 1 \) apresentam certa estabilidade, como pode ser observado
@@ -295,7 +299,7 @@ dessa simulação.
 \begin{figure}[h!] 
     \centering
     \caption{Simulação para \( r = 0,25 \) nas primeiras iterações.}
-    \includegraphics[width=0.35\textwidth]{graf-tarefa1-c1}
+    \includegraphics[width=0.5\linewidth]{graf-tarefa1-c1}
     \label{fig:tarefa1-c1}
 \end{figure}
 
@@ -308,11 +312,11 @@ ver claramente as deformações do pacote gaussiano.
 \begin{figure}[h!] 
     \centering
     \caption{Comportamento da onda para um tempo grande.}
-    \includegraphics[width=0.50\textwidth]{graf-tarefa1-c2}
+    \includegraphics[width=0.50\linewidth]{graf-tarefa1-c2}
     \label{fig:tarefa1-c2}
 \end{figure}
 
-\clearpage
+
 \section{Simulação de ondas na corda de violão}
 
 Já o perfil inicial de pinça, na corda do violão, foi chamado de \verb|Y0_pinca(x, s)|, e pela
@@ -352,7 +356,7 @@ repetição da situação inicial. E por fim, as interferências também são co
 \begin{figure}[h!] 
     \centering
     \centering
-    \includegraphics[width=0.4\textwidth]{graf-tarefa2-a}
+    \includegraphics[width=0.5\linewidth]{graf-tarefa2-a}
     \caption{}
     \label{fig:subA}
 \end{figure}
@@ -373,18 +377,18 @@ contribuem para as próximas iterações que como vimos são ampliadas muitos ra
 \begin{figure}[h!] 
     \centering
     \caption{Simulação das ondas divergindo para \( r = 2 \) em poucas iterações.}
-    \includegraphics[width=0.35\textwidth]{graf-tarefa2-b}
+    \includegraphics[width=0.5\linewidth]{graf-tarefa2-b}
     \label{fig:subB}
 \end{figure}
 
 
-\clearpage
+
 \subsection{Caso de \( r = 0.25 \) }
 
 \begin{figure}[h!] 
     \centering
     \caption{Simulação das ondas no violão para \( r = 0,25 \). }
-    \includegraphics[width=0.4\textwidth]{graf-tarefa2-c1}
+    \includegraphics[width=0.5\linewidth]{graf-tarefa2-c1}
     \label{fig:tarefa2_c1}
 \end{figure}
 
@@ -394,7 +398,7 @@ tempos testados.
 \begin{figure}[h!] 
     \centering
     \caption{Gráfico simplificado das deformações de ondas para condição inicial (\ref{eq:y_0_pinca}).}
-    \includegraphics[width=0.4\textwidth]{graf-tarefa2-c22}
+    \includegraphics[width=0.5\linewidth]{graf-tarefa2-c22}
     \label{fig:tarefa2_c}
 \end{figure}
 

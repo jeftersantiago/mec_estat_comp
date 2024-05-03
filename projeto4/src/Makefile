@@ -6,10 +6,12 @@ all-rules:
 	gfortran tarefa-1/all-rules.f tarefa-1/cellular-automaton.f -o tarefa-1/all-rules.exe
 run-all-rules:
 	./tarefa-1/all-rules.exe
+
 tarefa2:
-	gfortran tarefa-2/tarefa-2.f -o tarefa-2/tarefa-2.exe
+	gfortran tarefa-2/tarefa-2.f tarefa-2/DLA.f -o tarefa-2/tarefa-2.exe
 run-tarefa2:
 	./tarefa-2/tarefa-2.exe
+
 compile:
 	gnuplot *.gp
 	for i in *.tex; do\

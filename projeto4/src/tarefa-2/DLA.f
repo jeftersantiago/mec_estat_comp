@@ -8,18 +8,18 @@
 !     Np -> numero de particulas
       subroutine DLA_2D(Np)
       implicit integer (x-x, y-y)
-      parameter(N = 500)
+      parameter(N = 600)
       dimension lattice(-N:N, -N:N)
 
 !     semente inicial
       lattice(0, 0) = 1
      
-      rnd = rand(iseed)
+      rnd = rand(69)!iseed)
       
       R_in = 5.0
       R_f = 1.5 * R_in
 
-      open(2, file="particle_positions.dat")
+      open(2, file="output.dat")
 
       do i = 1, Np
 
@@ -30,12 +30,12 @@
 
          call generate_random_particle(R_in, x, y) 
 
-         print *, "r = ", R_in
+!        print *, "r = ", R_in
          s = 0
          touched = 0
 
-         print *, "x = ", x
-         print *, "y = ", y
+!        print *, "x = ", x
+!        print *, "y = ", y
 
          do while(touched == 0) 
 
@@ -58,7 +58,7 @@
             else if(s >= 1) then
                touched = 1
                lattice(x, y) = 1
-
+!     Salva o cluster
                write(2, *) x, y, R_in
 
                if(d > R_in) then
