@@ -1,63 +1,45 @@
 !     Efeito corona
 !     código da tarefa-2 : dla_2d
-!     com adaptação nas condições iniciais.
-!     e mudança no random-walk
+!     com adaptação nas condições iniciais e tamanho
+!     do grid em Y.
       implicit integer (x-x, y-y)
       parameter(N = 800)
-      dimension lattice(-N:N, 0:4000)
-
-      dimension x_step(0:3)
-      dimension y_step(0:3)
-
-      parameter(x_step=(/1, -1, 0, 0/))
-      parameter(y_step=(/0, 0, 1, -1/))
-
-      logical touched 
-
-!      read(*, *) Np, iseed
-      Np = 50000
-      iseed = 423 
-
-      lattice = 0
-      call srand(423)
-
+      dimension grid(-N:N, 0:5000)
+      Np = 80000
+      read(*, *) iseed
+      call srand(iseed)
+      grid = 0
       open(1, file="saida-dla.dat")
 !     semente inicial
       do i = -N, N
-         lattice(i, 0) = 1
+         grid(i, 0) = 1
          write(1, *) i, 0
       end do
-      R_in = 5
-      R_f = 1.5 * R_in
-!     sum = 0
-
+      Y_in = 5
+      Y_f = 1.5 * Y_in
       do i = 1, Np
-         touched = .true.
-!         touched = 1
-!         print *, "Particle #", i
+         touched = 1
+         print *, "Particle #", i
 !     Gera uma particula em um ponto aleatorio.
          x = (2 * N * rand()) - N
          y = R_in
-         do while(touched .eqv. .true.) 
-!     random steps
-            ia = 4 * rand()
-            x = x + x_step(ia)
-            y = y + y_step(ia)
-!     Captura celula ao redor da posição atual se houver
+         do while(touched == 1) 
+!      Passo aleatorio
+            x = x + floor(rand()*3) - 1
+            y = y + floor(rand()*3) - 1
+            call random_step(x, y)
+!     Conta numero de vizinhos proximos
             do j = -1, 1
                do k = 0, 1
-                  sum=sum+lattice(x+j,y-k)
+                  sum = sum + grid(x + j, y - k)
                end do
             end do
-!            print *, "SUM = ", sum
-            if(x >= N .or. x < -N .or. y > R_max) then
-!               touched = 0
-               touched = .false.
+            if(x >= N .or. x < -N .or. y > R_f) then
+               touched = 0
             else if (sum > 0) then
-               lattice(x, y) = 1
+               grid(x, y) = 1
                write(1, *) x, y
-!               touched = 0
-               touched = .false.
+               touched = 0
                sum = 0
                if(y == R_in) then
                   R_in = R_in + 5  

@@ -1,10 +1,9 @@
 #!/bin/bash
-exe="./tarefa-2.exe"
-output_dir="../saidas/tarefa-2/"
-seed_values=(169 255 954)
+exe="./tarefa-4.exe"
+output_dir="../saidas/tarefa-4/"
+seed_values=(229 337 957)
 for seed in "${seed_values[@]}"; do
     echo "Running for R = $R"
     echo "$seed" | $exe
-    mv "saida-dla.dat" "$output_dir/DLA_2D-$seed.dat"
-    mv "saida-contagem.dat" "$output_dir/DLA_2D-$seed-dimensao.dat"
+    mv "saida-dla.dat" "$output_dir/efeito-corona-$seed.dat"
 done
