@@ -1,7 +1,7 @@
       implicit integer (c-c, r-r)
       ! C_{t}
-      L = 50
-      K = 30
+      L = 100
+      K = 100
       print *, "Forneca regra R [0, 255]"
 
       read(*, *) R

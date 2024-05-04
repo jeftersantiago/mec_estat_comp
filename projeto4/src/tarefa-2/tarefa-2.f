@@ -1,5 +1,6 @@
 !     DLA (2D)
-      call DLA_2D(80000)
+      read(*, *) iseed
+      call DLA_2D(50000, iseed)
       end 
 
       

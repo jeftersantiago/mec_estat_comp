@@ -12,6 +12,18 @@ tarefa2:
 run-tarefa2:
 	./tarefa-2/tarefa-2.exe
 
+tarefa3:
+	gfortran tarefa-3/tarefa-3.f tarefa-3/DLA_3D.f -o tarefa-3/tarefa-3.exe
+run-tarefa3:
+	./tarefa-3/tarefa-3.exe
+
+tarefa4:
+	gfortran tarefa-4/tarefa-4.f -o tarefa-4/tarefa-4.exe
+run-tarefa4:
+	./tarefa-4/tarefa-4.exe
+
+
+
 compile:
 	gnuplot *.gp
 	for i in *.tex; do\

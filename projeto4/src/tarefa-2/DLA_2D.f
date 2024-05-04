@@ -6,20 +6,23 @@
 !     arquivo de dados.
 !     Parâmetros:
 !     Np -> numero de particulas
-      subroutine DLA_2D(Np)
+      subroutine DLA_2D(Np, iseed)
       implicit integer (x-x, y-y)
-      parameter(N = 600)
+      parameter(N = 500)
       dimension lattice(-N:N, -N:N)
 
 !     semente inicial
       lattice(0, 0) = 1
      
-      rnd = rand(69)!iseed)
+      rnd = rand(iseed)
       
       R_in = 5.0
       R_f = 1.5 * R_in
 
-      open(2, file="output.dat")
+      open(1, file="saida-dla.dat")
+      open(2, file="saida-contagem.dat")
+
+      nparts = 0
 
       do i = 1, Np
 
@@ -30,12 +33,8 @@
 
          call generate_random_particle(R_in, x, y) 
 
-!        print *, "r = ", R_in
          s = 0
          touched = 0
-
-!        print *, "x = ", x
-!        print *, "y = ", y
 
          do while(touched == 0) 
 
@@ -57,9 +56,12 @@
                touched = 1
             else if(s >= 1) then
                touched = 1
+!     Adiciona mais uma particula à conta do raio.
                lattice(x, y) = 1
 !     Salva o cluster
-               write(2, *) x, y, R_in
+               nparts = nparts + 1
+               write(1, *) x, y, R_in
+               write(2, *) R_in, nparts
 
                if(d > R_in) then
                   R_in = d + 5
@@ -70,7 +72,6 @@
       end do
       close(2)
       end subroutine DLA_2D
-
 !     Gera uma partícula em uma posicao aleatoria
 !     dado um raio inicial R_in
       subroutine generate_random_particle(R_in, x, y) !cell)
@@ -94,21 +95,9 @@
 !     Parametros:
 !     posicao x, y
       subroutine random_step(x,y)!cell)
-      implicit integer(x-x,y-y,c-c)
-      dimension cell(2)
-
-!      cell(1) = cell(1) + floor(rand()*3) -1
-!      cell(2) = cell(2) + floor(rand()*3) -1
+      implicit integer(x-x,y-y)
 
       x = x + floor(rand()*3) - 1
       y = y + floor(rand()*3) - 1
 
       end subroutine random_step
-
-
-
-
-
-
-
-
