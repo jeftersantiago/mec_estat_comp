@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{      }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{c}\PYG{o}{\PYGZhy{}}\PYG{n}{c}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{r}\PYG{o}{\PYGZhy{}}\PYG{n}{r}\PYG{p}{)}
+\PYG{+w}{      }\PYG{c}{! C\PYGZus{}\PYGZob{}t\PYGZcb{}}
+\PYG{+w}{      }\PYG{n}{L}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}
+\PYG{+w}{      }\PYG{n}{K}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}
+\PYG{+w}{      }\PYG{k}{print}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Forneca regra R [0, 255]\PYGZdq{}}
+
+\PYG{+w}{      }\PYG{k}{read}\PYG{p}{(}\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{R}
+
+\PYG{+w}{      }\PYG{k}{open}\PYG{p}{(}\PYG{n}{unit}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}rule\PYGZhy{}\PYGZsh{}\PYGZhy{}0.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{open}\PYG{p}{(}\PYG{n}{unit}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}rule\PYGZhy{}\PYGZsh{}\PYGZhy{}1.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{open}\PYG{p}{(}\PYG{n}{unit}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}rule\PYGZhy{}\PYGZsh{}\PYGZhy{}2.dat\PYGZdq{}}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{k}{call }\PYG{n}{DCA}\PYG{p}{(}\PYG{n}{R}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{K}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{call }\PYG{n}{DCA}\PYG{p}{(}\PYG{n}{R}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{K}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{call }\PYG{n}{DCA}\PYG{p}{(}\PYG{n}{R}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{K}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{k}{close}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{close}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{close}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{end}
+\end{Verbatim}

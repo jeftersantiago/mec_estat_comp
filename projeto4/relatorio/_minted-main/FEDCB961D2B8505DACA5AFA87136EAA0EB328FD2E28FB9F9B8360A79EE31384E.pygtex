@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{  }\PYG{c}{!   DLA (2D)}
+\PYG{+w}{      }\PYG{k}{read}\PYG{p}{(}\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{iseed}
+\PYG{+w}{      }\PYG{k}{call }\PYG{n}{DLA\PYGZus{}2D}\PYG{p}{(}\PYG{l+m+mi}{50000}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{iseed}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{end}
+\end{Verbatim}

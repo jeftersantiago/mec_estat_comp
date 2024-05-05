@@ -1,0 +1,108 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{!     Gera estado inicial da cadeia.}
+\PYG{c}{!     Se config = 0 =\PYGZgt{} C\PYGZus{}0¹ = \PYGZob{}0, ..., 0\PYGZcb{}}
+\PYG{c}{!     Se config = 1 =\PYGZgt{} C\PYGZus{}0² = \PYGZob{}1, ..., 1\PYGZcb{}}
+\PYG{c}{!     Se config qualquer outro valor =\PYGZgt{} C\PYGZus{}0³ = \PYGZob{}b\PYGZus{}1,..., b\PYGZus{}L\PYGZcb{}}
+\PYG{c}{!     com b\PYGZus{}i aleatorio.}
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{set\PYGZus{}initial\PYGZus{}state}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{config}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{c}\PYG{o}{\PYGZhy{}}\PYG{n}{c}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{dimension }\PYG{n}{C}\PYG{p}{(}\PYG{l+m+mi}{500}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{k}{if}\PYG{p}{(}\PYG{n}{config}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{then}
+\PYG{k}{         }\PYG{n}{C}\PYG{p}{(:)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{      }\PYG{k}{else if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{config}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{then}
+\PYG{k}{         }\PYG{n}{C}\PYG{p}{(:)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{      }\PYG{k}{else}
+\PYG{k}{         }\PYG{n}{p}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{rand}\PYG{p}{(}\PYG{n}{iseed}\PYG{p}{)}
+\PYG{+w}{         }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}
+\PYG{+w}{            }\PYG{n}{p}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{rand}\PYG{p}{()}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{l+m+mi}{2}
+\PYG{c}{!           k in [0, 1]}
+\PYG{+w}{            }\PYG{n}{k}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{int}\PYG{p}{((}\PYG{n}{p}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{c}{!            print *, k}
+\PYG{+w}{            }\PYG{n}{C}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{k}
+\PYG{+w}{         }\PYG{k}{end do}
+\PYG{k}{      end if}
+\PYG{k}{      end subroutine}
+
+\PYG{c}{!     Popula o vetor rules de 8 posições}
+\PYG{c}{!     com valores 0 ou 1}
+\PYG{c}{!     a partir de um número inteiro}
+\PYG{c}{!     entre 0, 255}
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{rule\PYGZus{}set}\PYG{p}{(}\PYG{n}{rules}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{N}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{p}{(}\PYG{n}{r}\PYG{o}{\PYGZhy{}}\PYG{n}{r}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{dimension }\PYG{n}{rules}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{)}
+\PYG{+w}{      }\PYG{n}{M}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{N}
+\PYG{c}{!      print *, \PYGZdq{}N = \PYGZdq{}, N}
+\PYG{c}{!      print *, \PYGZdq{}M = \PYGZdq{}, M}
+\PYG{+w}{      }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{8}
+\PYG{+w}{         }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{k+kt}{real}\PYG{p}{(}\PYG{n}{M}\PYG{p}{)}
+\PYG{+w}{         }\PYG{n}{rules}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{mod}\PYG{p}{(}\PYG{n}{M}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{+w}{         }\PYG{n}{M}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{x}\PYG{o}{/}\PYG{l+m+mf}{2.0}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{end do}
+
+\PYG{c}{!      do i = 1, 8}
+\PYG{c}{!         print *, rules(i)}
+\PYG{c}{!      end do}
+
+\PYG{+w}{      }\PYG{k}{end subroutine}
+
+
+\PYG{k}{      subroutine }\PYG{n}{propagate}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{rules}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{p}{(}\PYG{n}{c}\PYG{o}{\PYGZhy{}}\PYG{n}{c}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{r}\PYG{o}{\PYGZhy{}}\PYG{n}{r}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{dimension }\PYG{n}{rules}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{)}
+\PYG{+w}{      }\PYG{c}{! C\PYGZus{}\PYGZob{}t\PYGZcb{}}
+\PYG{+w}{      }\PYG{k}{dimension }\PYG{n}{C}\PYG{p}{(}\PYG{l+m+mi}{500}\PYG{p}{)}
+\PYG{+w}{      }\PYG{c}{! C\PYGZus{}\PYGZob{}t+1\PYGZcb{}}
+\PYG{+w}{      }\PYG{k}{dimension }\PYG{n}{C\PYGZus{}tmp}\PYG{p}{(}\PYG{l+m+mi}{500}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+\PYG{+w}{         }\PYG{n}{C\PYGZus{}tmp}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{rules}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{o}{*}\PYG{n}{C}\PYG{p}{(}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{C}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}\PYG{o}{+}\PYG{n}{C}\PYG{p}{(}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{end do}
+
+\PYG{k}{      }\PYG{n}{C\PYGZus{}tmp}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{rules}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{o}{*}\PYG{n}{C}\PYG{p}{(}\PYG{n}{L}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{C}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{+}\PYG{n}{C}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{      }\PYG{n}{C\PYGZus{}tmp}\PYG{p}{(}\PYG{n}{L}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{rules}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{o}{*}\PYG{n}{C}\PYG{p}{(}\PYG{n}{L}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{C}\PYG{p}{(}\PYG{n}{L}\PYG{p}{)}\PYG{o}{+}\PYG{n}{C}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{n}{C}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{C\PYGZus{}tmp}
+
+\PYG{+w}{      }\PYG{k}{end subroutine}
+
+
+\PYG{+w}{      }\PYG{c}{! Max size of chain; L = 500}
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{DCA}\PYG{p}{(}\PYG{n}{rule\PYGZus{}number}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{N\PYGZus{}iter}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{init\PYGZus{}state}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{f\PYGZus{}name}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{p}{(}\PYG{n}{f}\PYG{o}{\PYGZhy{}}\PYG{n}{f}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{c}\PYG{o}{\PYGZhy{}}\PYG{n}{c}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{r}\PYG{o}{\PYGZhy{}}\PYG{n}{r}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{dimension }\PYG{n}{rules}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{dimension }\PYG{n}{C}\PYG{p}{(}\PYG{l+m+mi}{500}\PYG{p}{)}
+
+\PYG{c}{!      print *, \PYGZdq{}rule\PYGZus{}number = \PYGZdq{}, rule\PYGZus{}number}
+\PYG{+w}{      }\PYG{k}{call }\PYG{n}{set\PYGZus{}initial\PYGZus{}state}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{init\PYGZus{}state}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{k}{write}\PYG{p}{(}\PYG{n}{f\PYGZus{}name}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{C}\PYG{p}{(}\PYG{n}{j}\PYG{p}{),}\PYG{+w}{ }\PYG{n}{j}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{k}{call }\PYG{n}{rule\PYGZus{}set}\PYG{p}{(}\PYG{n}{rules}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{rule\PYGZus{}number}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{N\PYGZus{}iter}
+\PYG{+w}{         }\PYG{k}{write}\PYG{p}{(}\PYG{n}{f\PYGZus{}name}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{C}\PYG{p}{(}\PYG{n}{j}\PYG{p}{),}\PYG{+w}{ }\PYG{n}{j}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{         }\PYG{k}{call }\PYG{n}{propagate}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{rules}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{end do}
+\PYG{k}{      end subroutine }\PYG{n}{DCA}
+
+\PYG{+w}{      }\PYG{c}{! Max size of chain; L = 500}
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{DCA\PYGZus{}position}\PYG{p}{(}\PYG{n}{rule\PYGZus{}number}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{N\PYGZus{}iter}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{pos}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{f\PYGZus{}name}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{p}{(}\PYG{n}{f}\PYG{o}{\PYGZhy{}}\PYG{n}{f}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{c}\PYG{o}{\PYGZhy{}}\PYG{n}{c}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{r}\PYG{o}{\PYGZhy{}}\PYG{n}{r}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{p}\PYG{o}{\PYGZhy{}}\PYG{n}{p}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{dimension }\PYG{n}{rules}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{dimension }\PYG{n}{C}\PYG{p}{(}\PYG{l+m+mi}{500}\PYG{p}{)}
+
+\PYG{c}{!      print *, \PYGZdq{}rule\PYGZus{}number = \PYGZdq{}, rule\PYGZus{}number}
+\PYG{+w}{      }\PYG{k}{call }\PYG{n}{set\PYGZus{}initial\PYGZus{}state}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{      }\PYG{n}{C}\PYG{p}{(}\PYG{n}{pos}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+
+\PYG{+w}{      }\PYG{k}{write}\PYG{p}{(}\PYG{n}{f\PYGZus{}name}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{C}\PYG{p}{(}\PYG{n}{j}\PYG{p}{),}\PYG{+w}{ }\PYG{n}{j}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{k}{call }\PYG{n}{rule\PYGZus{}set}\PYG{p}{(}\PYG{n}{rules}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{rule\PYGZus{}number}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{N\PYGZus{}iter}
+\PYG{+w}{         }\PYG{k}{write}\PYG{p}{(}\PYG{n}{f\PYGZus{}name}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{C}\PYG{p}{(}\PYG{n}{j}\PYG{p}{),}\PYG{+w}{ }\PYG{n}{j}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{         }\PYG{k}{call }\PYG{n}{propagate}\PYG{p}{(}\PYG{n}{C}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{rules}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{end do}
+\PYG{k}{      end subroutine }\PYG{n}{DCA\PYGZus{}position}
+\end{Verbatim}

@@ -1,0 +1,102 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{!     Dinâmica DLA em 2D}
+\PYG{c}{!     Para cada partícula:}
+\PYG{c}{!     \PYGZhy{} Gera posicao inicial aleatoria.}
+\PYG{c}{!     \PYGZhy{} Aplica dinâmica de random walk.}
+\PYG{c}{!     \PYGZhy{} Ao agregar novas celulas armazena a posição e raio atual à um}
+\PYG{c}{!     arquivo de dados.}
+\PYG{c}{!     Parâmetros:}
+\PYG{c}{!     Np \PYGZhy{}\PYGZgt{} numero de particulas}
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{DLA\PYGZus{}2D}\PYG{p}{(}\PYG{n}{Np}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{iseed}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{x}\PYG{o}{\PYGZhy{}}\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{o}{\PYGZhy{}}\PYG{n}{y}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{N}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{500}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{dimension }\PYG{n}{lattice}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{N}\PYG{p}{:}\PYG{n}{N}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{n}{N}\PYG{p}{:}\PYG{n}{N}\PYG{p}{)}
+
+\PYG{c}{!     semente inicial}
+\PYG{+w}{      }\PYG{n}{lattice}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+
+\PYG{+w}{      }\PYG{n}{rnd}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{rand}\PYG{p}{(}\PYG{n}{iseed}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{n}{R\PYGZus{}in}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{5.0}
+\PYG{+w}{      }\PYG{n}{R\PYGZus{}f}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{1.5}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{R\PYGZus{}in}
+
+\PYG{+w}{      }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saida\PYGZhy{}dla.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saida\PYGZhy{}contagem.dat\PYGZdq{}}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{n}{nparts}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+
+\PYG{+w}{      }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Np}
+
+\PYG{+w}{         }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{         }\PYG{n}{y}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+
+\PYG{+w}{         }\PYG{k}{print}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Particle \PYGZsh{}\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{i}
+
+\PYG{+w}{         }\PYG{k}{call }\PYG{n}{generate\PYGZus{}random\PYGZus{}particle}\PYG{p}{(}\PYG{n}{R\PYGZus{}in}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{)}
+
+\PYG{+w}{         }\PYG{n}{s}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{         }\PYG{n}{touched}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+
+\PYG{+w}{         }\PYG{k}{do while}\PYG{p}{(}\PYG{n}{touched}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{+w}{            }\PYG{k}{call }\PYG{n}{random\PYGZus{}step}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{)}
+
+\PYG{+w}{            }\PYG{n}{d}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{sqrt}\PYG{p}{(}\PYG{k+kt}{real}\PYG{p}{(}\PYG{n}{x}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{y}\PYG{+w}{ }\PYG{o}{**}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{p}{))}
+
+\PYG{c}{!     Captura celula ao redor da posição atual se houver}
+\PYG{+w}{            }\PYG{k}{do }\PYG{n}{k}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{               }\PYG{k}{do }\PYG{n}{j}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{c}{!                Checagem de borda}
+\PYG{+w}{                  }\PYG{k}{if}\PYG{p}{(}\PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{N}\PYG{+w}{ }\PYG{p}{.}\PYG{n+nb}{and}\PYG{p}{.}\PYG{+w}{ }\PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{y}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{N}\PYG{p}{)}\PYG{k}{then}
+\PYG{k}{                     }\PYG{n}{s}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{s}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{x}\PYG{o}{+}\PYG{n}{k}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{o}{+}\PYG{n}{j}\PYG{p}{)}
+\PYG{+w}{                  }\PYG{k}{end if}
+\PYG{k}{               end do}
+\PYG{k}{            end do}
+\PYG{c}{!     Adiciona nova celula, atualiza raio}
+\PYG{+w}{            }\PYG{k}{if}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{d}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{R\PYGZus{}f}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{then}
+\PYG{k}{               }\PYG{n}{touched}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{            }\PYG{k}{else if}\PYG{p}{(}\PYG{n}{s}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{then}
+\PYG{k}{               }\PYG{n}{touched}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{c}{!     Adiciona mais uma particula à conta do raio.}
+\PYG{+w}{               }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{c}{!     Salva o cluster}
+\PYG{+w}{               }\PYG{n}{nparts}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{nparts}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{               }\PYG{k}{write}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{R\PYGZus{}in}
+\PYG{+w}{               }\PYG{k}{write}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{R\PYGZus{}in}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{nparts}
+
+\PYG{+w}{               }\PYG{k}{if}\PYG{p}{(}\PYG{n}{d}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{R\PYGZus{}in}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{then}
+\PYG{k}{                  }\PYG{n}{R\PYGZus{}in}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{d}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{5}
+\PYG{+w}{                  }\PYG{n}{R\PYGZus{}f}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{1.5}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{R\PYGZus{}in}
+\PYG{+w}{               }\PYG{k}{end if}
+\PYG{k}{            end if}
+\PYG{k}{         end do}
+\PYG{k}{      end do}
+\PYG{k}{      close}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{end subroutine }\PYG{n}{DLA\PYGZus{}2D}
+\PYG{c}{!     Gera uma partícula em uma posicao aleatoria}
+\PYG{c}{!     dado um raio inicial R\PYGZus{}in}
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{generate\PYGZus{}random\PYGZus{}particle}\PYG{p}{(}\PYG{n}{R\PYGZus{}in}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{c}\PYG{o}{\PYGZhy{}}\PYG{n}{c}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{x}\PYG{o}{\PYGZhy{}}\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{o}{\PYGZhy{}}\PYG{n}{y}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{pi}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{acos}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mf}{1e0}\PYG{p}{))}
+
+\PYG{+w}{      }\PYG{n}{rnd\PYGZus{}val}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{rand}\PYG{p}{()}
+
+\PYG{+w}{      }\PYG{n}{theta}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{pi}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{rnd\PYGZus{}val}
+
+\PYG{+w}{      }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{R\PYGZus{}in}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n+nb}{cos}\PYG{p}{(}\PYG{n}{theta}\PYG{p}{))}
+\PYG{+w}{      }\PYG{n}{y}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{R\PYGZus{}in}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n+nb}{sin}\PYG{p}{(}\PYG{n}{theta}\PYG{p}{))}
+
+\PYG{+w}{      }\PYG{k}{end subroutine }\PYG{n}{generate\PYGZus{}random\PYGZus{}particle}
+
+\PYG{c}{!     Dinâmica das particulas.}
+\PYG{c}{!     Executa random\PYGZhy{}walk até que: atinge uma celula ocupada}
+\PYG{c}{!     Parametros:}
+\PYG{c}{!     posicao x, y}
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{random\PYGZus{}step}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{p}{(}\PYG{n}{x}\PYG{o}{\PYGZhy{}}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{o}{\PYGZhy{}}\PYG{n}{y}\PYG{p}{)}
+
+\PYG{+w}{      }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n+nb}{floor}\PYG{p}{(}\PYG{n+nb}{rand}\PYG{p}{()}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{      }\PYG{n}{y}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{y}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n+nb}{floor}\PYG{p}{(}\PYG{n+nb}{rand}\PYG{p}{()}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}
+
+\PYG{+w}{      }\PYG{k}{end subroutine }\PYG{n}{random\PYGZus{}step}
+\end{Verbatim}

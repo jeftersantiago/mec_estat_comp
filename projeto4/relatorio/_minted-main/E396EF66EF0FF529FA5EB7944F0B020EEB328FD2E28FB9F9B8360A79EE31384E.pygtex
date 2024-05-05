@@ -1,0 +1,53 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c}{!     Efeito corona}
+\PYG{c}{!     código da tarefa\PYGZhy{}2 : dla\PYGZus{}2d}
+\PYG{c}{!     com adaptação nas condições iniciais e tamanho}
+\PYG{c}{!     do lattice em Y.}
+\PYG{+w}{      }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{x}\PYG{o}{\PYGZhy{}}\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{o}{\PYGZhy{}}\PYG{n}{y}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{N}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{800}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{dimension }\PYG{n}{lattice}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{N}\PYG{p}{:}\PYG{n}{N}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{l+m+mi}{5000}\PYG{p}{)}
+\PYG{+w}{      }\PYG{n}{Np}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{80000}
+\PYG{+w}{      }\PYG{k}{read}\PYG{p}{(}\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{iseed}
+\PYG{+w}{      }\PYG{k}{call }\PYG{n+nb}{srand}\PYG{p}{(}\PYG{n}{iseed}\PYG{p}{)}
+\PYG{+w}{      }\PYG{n}{lattice}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{      }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saida\PYGZhy{}dla.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{c}{!     semente inicial}
+\PYG{+w}{      }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{n}{N}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{N}
+\PYG{+w}{         }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{         }\PYG{k}{write}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{      }\PYG{k}{end do}
+\PYG{k}{      }\PYG{n}{Y\PYGZus{}in}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{5}
+\PYG{+w}{      }\PYG{n}{Y\PYGZus{}f}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{1.5}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{Y\PYGZus{}in}
+\PYG{+w}{      }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{Np}
+\PYG{+w}{         }\PYG{n}{touched}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{         }\PYG{k}{print}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}Particle \PYGZsh{}\PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{i}
+\PYG{c}{!     Gera uma particula em um ponto aleatorio.}
+\PYG{+w}{         }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{N}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n+nb}{rand}\PYG{p}{())}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{N}
+\PYG{+w}{         }\PYG{n}{y}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{R\PYGZus{}in}
+\PYG{+w}{         }\PYG{k}{do while}\PYG{p}{(}\PYG{n}{touched}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{c}{!      Passo aleatorio}
+\PYG{+w}{            }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n+nb}{floor}\PYG{p}{(}\PYG{n+nb}{rand}\PYG{p}{()}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{            }\PYG{n}{y}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{y}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n+nb}{floor}\PYG{p}{(}\PYG{n+nb}{rand}\PYG{p}{()}\PYG{o}{*}\PYG{l+m+mi}{3}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{c}{!     Conta numero de vizinhos proximos}
+\PYG{+w}{            }\PYG{k}{do }\PYG{n}{j}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{               }\PYG{k}{do }\PYG{n}{k}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{                  }\PYG{n+nb}{sum}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{sum}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{x}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{)}
+\PYG{+w}{               }\PYG{k}{end do}
+\PYG{k}{            end do}
+\PYG{k}{            if}\PYG{p}{(}\PYG{n}{x}\PYG{+w}{ }\PYG{o}{\PYGZgt{}=}\PYG{+w}{ }\PYG{n}{N}\PYG{+w}{ }\PYG{p}{.}\PYG{n+nb}{or}\PYG{p}{.}\PYG{+w}{ }\PYG{n}{x}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{n}{N}\PYG{+w}{ }\PYG{p}{.}\PYG{n+nb}{or}\PYG{p}{.}\PYG{+w}{ }\PYG{n}{y}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{n}{R\PYGZus{}f}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{then}
+\PYG{k}{               }\PYG{n}{touched}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{            }\PYG{k}{else if}\PYG{+w}{ }\PYG{p}{(}\PYG{n+nb}{sum}\PYG{+w}{ }\PYG{o}{\PYGZgt{}}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{then}
+\PYG{k}{               }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{               }\PYG{k}{write}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}
+\PYG{+w}{               }\PYG{n}{touched}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{               }\PYG{n+nb}{sum}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{               }\PYG{k}{if}\PYG{p}{(}\PYG{n}{y}\PYG{+w}{ }\PYG{o}{==}\PYG{+w}{ }\PYG{n}{R\PYGZus{}in}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{then}
+\PYG{k}{                  }\PYG{n}{R\PYGZus{}in}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{R\PYGZus{}in}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{5}
+\PYG{+w}{                  }\PYG{n}{R\PYGZus{}f}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{  }\PYG{n}{R\PYGZus{}in}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{l+m+mf}{1.5}
+\PYG{+w}{               }\PYG{k}{end if}
+\PYG{k}{            end if}
+\PYG{k}{         end do}
+\PYG{k}{      end do}
+\PYG{k}{      close}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{      }\PYG{k}{end}
+\end{Verbatim}
