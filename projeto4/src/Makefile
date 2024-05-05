@@ -22,6 +22,12 @@ tarefa4:
 run-tarefa4:
 	./tarefa-4/tarefa-4.exe
 
+tarefa5:
+	gfortran tarefa-5/tarefa-5.f -o tarefa-5/tarefa-5.exe
+run-tarefa5:
+	./tarefa-5/tarefa-5.exe
+
+
 
 
 compile:

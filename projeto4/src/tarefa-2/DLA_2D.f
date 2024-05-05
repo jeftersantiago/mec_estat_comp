@@ -74,10 +74,9 @@
       end subroutine DLA_2D
 !     Gera uma partícula em uma posicao aleatoria
 !     dado um raio inicial R_in
-      subroutine generate_random_particle(R_in, x, y) !cell)
+      subroutine generate_random_particle(R_in, x, y)
       implicit integer (c-c, x-x, y-y)
       parameter(pi = acos(-1e0))
-      dimension cell(2)
 
       rnd_val = rand()
 
@@ -86,15 +85,13 @@
       x = int(R_in * cos(theta))
       y = int(R_in * sin(theta))
 
-!      cell(1) = x
-!      cell(2) = y
       end subroutine generate_random_particle
 
 !     Dinâmica das particulas.
 !     Executa random-walk até que: atinge uma celula ocupada
 !     Parametros:
 !     posicao x, y
-      subroutine random_step(x,y)!cell)
+      subroutine random_step(x,y)
       implicit integer(x-x,y-y)
 
       x = x + floor(rand()*3) - 1
