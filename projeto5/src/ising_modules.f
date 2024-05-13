@@ -1,8 +1,8 @@
         subroutine define_exponentials(exps, beta)
             dimension exps(-4:4)
             do i = -4,4
-                exps(i) = exp(-beta*i * 1.0)! /(exp(-beta*i)+exp(-beta*i)) 
-            end do  
+                exps(i) = exp(-beta*i)/(exp(beta*i)+exp(-beta*i)) 
+            end do
 
         end subroutine define_exponentials
 
@@ -20,16 +20,16 @@
             k = floor(rand()* L_real) + 1
 
             ! ∆M̃ = J[s(i − 1, j + s(i + 1, j) + s(i, j − 1) + s(i, j + 1)].
-            dM = lattice(ipbc(i-1), k) + lattice(ipbc(i+1), k)
-            dM = dM + lattice(i, ipbc(k-1)) + lattice(i,ipbc(k+1))
+            dM = lattice(ipbc(i-1),k) + lattice(ipbc(i+1),k)
+            dM = dM + lattice(i,ipbc(k-1)) + lattice(i,ipbc(k+1))
             dM = J * dM
 
             ! spin(i, j) and dM are positions of the lattice, so
             s = lattice(i, k)
-            e_flip = exps(s*dM)/(exps(-s*dM)+exps(s*dM))
+            e_flip =  exps(s*dM)
 
             if(rand() < e_flip) then 
-                lattice(i, k) = -lattice(i, k)
+                lattice(i, k) = - lattice(i, k)
                 ! Magnetization
                 m = m - 2 * s
                 ! Change in the energy
@@ -82,7 +82,25 @@
                end do
             end do
         end subroutine initialize_lattice
-    
+        
+        subroutine initialize_random_lattice(lattice, m, L_real)
+            parameter(L = 100)
+            byte lattice(1:L, 1:L)
+            ! initializing lattice
+            m = 0
+            do i = 1, L_real
+                do k = 1, L_real
+                   if(rand() > 0.5) then 
+                       lattice(i, k) = 1
+                       m = m + 1
+                    else 
+                        lattice(i, k) = -1
+                        m = m - 1
+                    end if
+                end do
+            end do
+        end subroutine initialize_random_lattice
+        
         subroutine write_lattice(lattice, L_real, f_name)
             implicit integer (f-f)
             parameter(L = 100)
@@ -90,7 +108,6 @@
             character *1 symb(-1:1)
             symb(1) = '1'
             symb(-1) = '0'
-        
             do i = 1, L_real
                write(f_name,'(100A2)') (symb(lattice(i,j)),j = 1,L_real)
 

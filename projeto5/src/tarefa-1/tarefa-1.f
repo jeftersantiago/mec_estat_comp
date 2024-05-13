@@ -6,9 +6,11 @@
         ! periodic boundary conditions
         dimension ipbc(0:L+1)
         ! this or using mod
-      
-        L_real = 100
+              L_real = 60
+
+        N = L_real * L_real
         
+        ! setting ipbc
         do i = 1, L_real
             ipbc(i) = i
         end do  
@@ -16,28 +18,29 @@
         ipbc(L_real+1) = 1
 
         beta = 3
+        m = 0
 
         call define_exponentials(exps, beta)
 
-        m = 0
         call initialize_lattice(lattice, m, L_real)
-        
-        call write_lattice(lattice, L_real, 1)
 
          ! initial energy
-        E_0 = H_0(lattice, ipbc, m, L_real)
+        E = H_0(lattice, ipbc, m, L_real)
 
         open(1, file="saida-configuracao.dat")
-        rnd = rand(iseed)
+
+        call srand(iseed)
          ! intialize monte carlo dynamics
-        do MC_step = 1, 1000
-            write(2, *) m, E
+        do MC_step = 1, 3000
             ! sweeps all configurations
             ! randomly flips spins
-            do i = 1 , L_real * L_real
+            do i = 1 , N
                call flip_spin(lattice,ipbc,exps,E,m,L_real)
-            end do   
+            end do  
+
         end do  
+
         call write_lattice(lattice, L_real, 1) 
         close(1)
+        
         end
