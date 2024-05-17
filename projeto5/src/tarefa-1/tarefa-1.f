@@ -1,4 +1,4 @@
-        implicit real(j-j)
+        implicit real(j-j, m-m)
         parameter(L = 100)
         dimension exps(-4:4)
         byte lattice(1:L, 1:L)
@@ -6,7 +6,7 @@
         ! periodic boundary conditions
         dimension ipbc(0:L+1)
         ! this or using mod
-              L_real = 60
+        L_real = 60
 
         N = L_real * L_real
         
@@ -17,12 +17,12 @@
         ipbc(0) = L_real
         ipbc(L_real+1) = 1
 
-        beta = 3
+        beta = 0.1
         m = 0
 
         call define_exponentials(exps, beta)
 
-        call initialize_lattice(lattice, m, L_real)
+        call initialize_lattice(lattice, L_real)
 
          ! initial energy
         E = H_0(lattice, ipbc, m, L_real)
@@ -31,7 +31,7 @@
 
         call srand(iseed)
          ! intialize monte carlo dynamics
-        do MC_step = 1, 3000
+        do k = 1, 3000
             ! sweeps all configurations
             ! randomly flips spins
             do i = 1 , N
