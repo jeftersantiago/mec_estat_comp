@@ -1,4 +1,4 @@
-!       Tarefa B - Recozimento e quenching
+!       Tarefa B - Recozimento/quenching
         implicit real(j-j, m-m)
         parameter(L = 100)
         dimension exps(-4:4)
@@ -21,17 +21,18 @@
         
         call srand(351324)
         
-        call initialize_random_lattice(lattice,  L_real)
+        call initialize_random_lattice(lattice,  L_real, L_real)
         
-        open(1, file="saida-configuracao-inicial-b1.dat")
+        open(1, file="saidas/tarefa-2/saida-tarefa-B1-conf-inicial.dat")
+        open(2, file="saidas/tarefa-2/saida-tarefa-B1-conf-final.dat")
+        open(3, file="saidas/tarefa-2/saida-tarefa-B1-mag-eng.dat")
+        
         call write_lattice(lattice, L_real, 1) 
-
         call total_magnetization(lattice, mag, L_real)
+        
          
         ! initial energy
         E = H_0(lattice, ipbc, L_real)
-
-        open(3, file="saida-magnetizacao-energia-b1.dat")
 
         dbeta = 0.001
         ! monte carlo dynamics
@@ -43,10 +44,7 @@
             end do   
             write(3, *) i, mag, E/N
         end do
-
-        open(2, file="saida-configuracao-final-b1.dat")
         call write_lattice(lattice, L_real, 2) 
-
         close(1)
         close(2)
         close(3)

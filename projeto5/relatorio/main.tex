@@ -1,120 +1,152 @@
-\documentclass[a4paper, 11pt]{tufte-handout}
-\usepackage[margin=0.7in]{geometry}
-\usepackage{framed}
-\usepackage{graphicx}
-\usepackage{xcolor}
-\usepackage{blindtext}
-\usepackage{xcolor}
-\usepackage{mdframed}
-\usepackage{indentfirst}
-\usepackage{graphicx}
-\usepackage{subcaption}
-\usepackage{hyperref}
-%\usepackage{txfonts}
-\usepackage{amsmath}
-\usepackage{titling}
-\usepackage{titlesec}
-\usepackage[brazil]{babel}
-\definecolor{LightGray}{gray}{0.97}
-\usepackage{minted}
-\usepackage{xcolor}
+\documentclass{tufte-handout}
+%\documentclass[a4paper, 12pt]{article}
+\input{header.tex}
 
-\setminted[fortran]{
-  framesep=2mm,
-  baselinestretch=1.2,
-  bgcolor=LightGray,
-  fontsize=\footnotesize,
-  linenos}
+% \usepackage{tgpagella}
+% \usepackage{mathpazo} 
 
-\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}[\titlerule] 
-\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{} 
-% \renewcommand\thesubsection{\Alph{subsection}}
-\graphicspath{ {../src/graficos/} }
-
-\hypersetup{
-  pdfauthor={Jefter Santiago},
-  pdftitle={Projeto 5 - Simulações de Monte Carlo},
-  pdfcreator={Jefter Santiago}, 
-  pdflang={Portuguese},
-  colorlinks=true,    % Color links instead of boxes
-  linkcolor=blue,     % Color of internal links
-  citecolor=green,    % Color of citation links
-  urlcolor=blue,      % Color of URLs
-}
-
-
-\title{\color{blue}Projeto 5 - Simulações de Monte Carlo}
+\title{Projeto 5 - Simulações de Monte Carlo}
 \author{Jefter Santiago (12559016)}
-\date{Entrega: 01/06/2024}
+\date{Entrega: 08/06/2024}
+
 \begin{document}
 \maketitle
 
+\section{Introdução ao modelo de Ising}
 
-\section{Introdução}
+Seja uma malha $2D$ com $L_x, L_y$ sítios nos eixos 
+$x$ e $y$, respectivamente. Cada sítio tem um spin $\sigma_k = \{ -1, +1 \}$ associado. 
+
+\begin{equation}
+  \mathcal{H} = -\frac{J}{2} \sum_{i = 1}^{L_x}\sum_{\ell = 1}^{L_y} s(i, \ell) \left[s_{i-1,\ell}+s_{i+1, \ell}+s_{i, \ell-1}+s_{i, \ell + 1}\right]
+  \label{eq:hamiltoniano_ising}
+\end{equation}
+
+trabalhamos apenas com malhas regulares quadradas, então $L \cdot L = N$, com $L=L_x=L_y$. 
+
+a energia total é 
+
+\begin{equation}
+    E = \langle \mathcal{H} \rangle
+\end{equation}
+
+
+Buscamos entender a relação da energia, magnetização 
+e a temperatura nesse sistema. 
+Partindo da função de partição 
+
+\begin{equation}
+    \mathcal{Z}(\beta) = \sum_{i = 1}^{L} \sum_{\ell = 1}^{L} e^{-\beta E}
+    \label{eq:funcao_particao}
+\end{equation} 
+
+onde $E$ é a energia dada pela (\ref{eq:hamiltoniano_ising}) e $\beta = 1/(K_bT)$.
+
+Além disso, o calor específico pode ser obtido por 
+
+
+\begin{equation}
+    C = \frac{1}{N}\frac{\langle \mathcal{H}^2 \rangle - \langle \mathcal{H} \rangle^2}{k_B T^2}
+    \label{eq:calor_especifico}
+\end{equation}
+
+
+Partindo do hamiltoniano (\ref{eq:hamiltoniano_ising}) e o spin $\sigma_k$ em cada sítio
+$(i, \ell)$ podemos fazer diversas medidas como do sistema. 
+Nesse trabalho estamos interessandos principalemente na energia média e magnetização média por sítio. 
+Sendo a magnetização de um sítio sendo o estado do seu spin, dizemos que a magnetização 
+total é simplesmente a soma de todos spins normalizada pela quantidade total de spins $N$.
+
+\begin{equation}
+    \langle m \rangle = \frac{1}{N} \sum_{i = 1}^{L} \sum_{\ell = 1}^{L} s(i,  \ell) 
+    \label{eq:mag_media1}
+\end{equation}
+
+Da descrição da magnetização e a eq.(\ref{eq:mag_media1}) já podemos intuir que as configurações
+correspondentes à máximo ou mínimo de magnetização são todos spins alinhados, sendo 
+$\langle m \rangle_{\text{max}} = \pm 1$.
+
+Queremos estudar a relação dessas medidas de energia e magnetização e suas relações com a 
+temperatura. Por isso buscamos uma outra relação para a magnetização média por spin. Utilizando 
+a função de partição(\ref{eq:funcao_particao}) para normalização dessa medida, temos $Z$ constante de normalização
+e 
+
+\begin{equation}
+  \langle m \rangle =  \frac{1}{N} \frac{1}{Z} \left( \sum_{\sigma}^{N} e^{- \beta E} s_\sigma \right)
+  \label{eq:mag_media_normalizada}
+\end{equation}
+
+\begin{equation}
+  P(s) = \frac{e^{\beta s \Delta M}}{e^{-\beta s \Delta M} + e^{\beta s \Delta M}}
+  \label{eq:prob_spin}
+\end{equation}
+\begin{equation}
+  P(-s) = \frac{e^{-\beta s \Delta M}}{e^{-\beta s \Delta M} + e^{\beta s \Delta M}} 
+ \label{eq:prob_spin_menos}
+\end{equation}
+
+onde $\Delta M$ é 
+
+\begin{equation}
+  \Delta M = J \left[ s(i-1, \ell) + s(i+1, \ell) + s(i, \ell -1) +  s(i, \ell+1) \right]
+\end{equation}
+
+Com essa descrição da magnetização média por spin podemos impor alguma dinâmica para o sistema e observar 
+as medidas desejadas.
+A dinâmica que trabalhamos nesse projeto que consiste em realizar alterar 
+algum spin aleatório da malha de acordo com a probabilidade, isto é, sorteamos a chance de flipar o spin 
+e se for menor ou maior (\ref{eq:prob_spin}) (\ref{eq:prob_spin_menos}) o estado é alterado e realizamos as medidas desejadas. 
+Utilizamos simulação de Monte Carlo para realizar a dinâmica até que o sistema atinja um determinado equilíbrio. Nesse
+método cada passo da simulação corresponde à dinâmica de alterar um spin para os $N$ spins do sistema. Tipicamente nas simulações
+realizadas o número de passos de Monte Carlo utilizados foi $3000$, mas para observar alguns fenômenos foi necessário aumentar esse 
+número. 
 
 
 \section{Detalhes de implementação}
 
+Todos os programas implementados no projeto seguem estruturas parecidas, portanto, foi
+criado um módulo apenas com operações básicas envolvendo o modelo de Ising em $2$D. No arquivo
+\verb|ising_modules.f| localizado na raiz do projeto estão as funções e rotinas gerais utilizadas
+nas diferentes simulações.
 
-\section{Tarefa 1 - Configurações finais do modelo de Ising para diferentes $\beta$}
+Na descrição da malha 2D foram adotadas condições periódicas de contorno, então as bordas da grade 
+estão conectadas e na discretização das posições dos spins foi utilizado um vetor de posição definido como 
 
 \begin{minted}{fortran}
-    implicit real(j-j)
-    parameter(L = 100)
-    dimension exps(-4:4)
-    byte lattice(1:L, 1:L)
-  
-    ! periodic boundary conditions
     dimension ipbc(0:L+1)
-    ! this or using mod
-  
-    L_real = 100
-    
-    do i = 1, L_real
+    N = L * L
+    ! setting periodic boundary conditions
+    do i = 1, L
         ipbc(i) = i
     end do  
-    ipbc(0) = L_real
-    ipbc(L_real+1) = 1
-  
-    beta = 3
-  
-    call define_exponentials(exps, beta)
-  
-    m = 0
-    call initialize_lattice(lattice, m, L_real)
-    
-    call write_lattice(lattice, L_real, 1)
-  
-     ! initial energy
-    E_0 = H_0(lattice, ipbc, m, L_real)
-  
-    open(1, file="saida-configuracao.dat")
-    rnd = rand(iseed)
-     ! intialize monte carlo dynamics
-    do MC_step = 1, 1000
-        write(2, *) m, E
-        ! sweeps all configurations
-        ! randomly flips spins
-        do i = 1 , L_real * L_real
-           call flip_spin(lattice,ipbc,exps,E,m,L_real)
-        end do   
-    end do  
-    call write_lattice(lattice, L_real, 1) 
-    close(1)
-    end
+    ipbc(0) = L
+    ipbc(L+1) = 1
 \end{minted}
 
+Além disso, como as (\ref{eq:prob_spin}) (\ref{eq:prob_spin_menos}) envolvem exponenciais
+e são contas feitas várias vezes no programa, é mais eficiente armazenar o valor das exponenciais em vetores 
+para cada um dos vizinhos $(i+1, \ell), (i-1, \ell), (i, \ell+1), (i, \ell -1)$  de um spin em $(i, \ell)$.
 
+Algumas escolhas nas implementações podem ter sido ineficientes, como ter uma rotina apenas para initializar o calculo 
+da magnetização. Embora isso seja verdade, optei por fazer dessa forma para obter um código mais 
+limpo e fácil de trabalhar. Entretando poderia ter feito esse tipo de conta na inicialização da configuração 
+da grade.
 
+Segue abaixo as rotinas gerais utilizadas para medidas que envolvem o modelo de Ising:
+\input{codigos/codigo_ising_modules.tex}
 
-\section{Tarefa 2 - Processo de \emph{recozimento}}
-\section{Tarefa 3 - Loop térmico}
-\section{Tarefa 4 }
-\section{Tarefa 5}
+\section{Tarefa A - \emph{Dinâmica de Monte Carlo para temperaturas fixas}}
+\input{tarefa-A.tex}
+%\clearpage
 
+\section{Tarefa B - \emph{Processos de recozimento e têmpera}}
+\input{tarefa-B.tex}
+%\clearpage
 
+\section{Tarefa C - \emph{Loop térmico}}
+\input{tarefa-C.tex}
+%\clearpage
+
+\section{Tarefa D - \emph{Quebra espontânea de simetria}}
+\input{tarefa-D.tex}
 \end{document}
-%%% Local Variables:
-%%% mode: LaTeX
-%%% TeX-master: t
-%%% End:

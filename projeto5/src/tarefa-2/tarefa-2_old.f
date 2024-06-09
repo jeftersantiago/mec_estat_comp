@@ -37,7 +37,7 @@
         open(2, file="saida-magnetizacao.dat")
         open(3, file="saida-energia.dat")
 
-        print *, "E/N = ", E/N
+        print *, "E/N = 2, E/N
 
         beta = 0
         dbeta = 0.001
