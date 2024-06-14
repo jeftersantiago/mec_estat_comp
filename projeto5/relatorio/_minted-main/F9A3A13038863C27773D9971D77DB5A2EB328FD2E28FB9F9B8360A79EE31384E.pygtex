@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{    }\PYG{k}{dimension }\PYG{n}{ipbc}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n}{L}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{N}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{L}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{L}
+\PYG{+w}{    }\PYG{c}{! setting periodic boundary conditions}
+\PYG{+w}{    }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L}
+\PYG{+w}{        }\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{i}
+\PYG{+w}{    }\PYG{k}{end do}
+\PYG{k}{    }\PYG{n}{ipbc}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{L}
+\PYG{+w}{    }\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{L}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\end{Verbatim}

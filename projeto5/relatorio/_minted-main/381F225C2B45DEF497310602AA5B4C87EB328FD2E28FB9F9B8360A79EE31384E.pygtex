@@ -1,0 +1,112 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{        }\PYG{k}{subroutine }\PYG{n}{define\PYGZus{}exponentials}\PYG{p}{(}\PYG{n}{exps}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{beta}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{dimension }\PYG{n}{exps}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{4}\PYG{p}{:}\PYG{l+m+mi}{4}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{l+m+mi}{4}
+\PYG{+w}{            }\PYG{n}{exps}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{exp}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{beta}\PYG{o}{*}\PYG{n}{i}\PYG{p}{)}\PYG{o}{/}\PYG{p}{(}\PYG{n+nb}{exp}\PYG{p}{(}\PYG{n}{beta}\PYG{o}{*}\PYG{n}{i}\PYG{p}{)}\PYG{o}{+}\PYG{n+nb}{exp}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{beta}\PYG{o}{*}\PYG{n}{i}\PYG{p}{))}
+\PYG{+w}{        }\PYG{k}{end do}
+\PYG{k}{      end subroutine }\PYG{n}{define\PYGZus{}exponentials}
+
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{flip\PYGZus{}spin}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{ipbc}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{exps}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{E}\PYG{p}{,}\PYG{+w}{  }\PYG{n}{mag}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{p}{(}\PYG{n}{s}\PYG{o}{\PYGZhy{}}\PYG{n}{s}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{d}\PYG{o}{\PYGZhy{}}\PYG{n}{d}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{implicit }\PYG{k+kt}{real}\PYG{p}{(}\PYG{n}{m}\PYG{o}{\PYGZhy{}}\PYG{n}{m}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{L}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{J}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{1.0}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{dimension }\PYG{n}{exps}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{4}\PYG{p}{:}\PYG{l+m+mi}{4}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{byte }\PYG{n}{lattice}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{dimension }\PYG{n}{ipbc}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n}{L}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{+w}{        }\PYG{c}{! choose a random site}
+\PYG{+w}{        }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{floor}\PYG{p}{(}\PYG{n+nb}{rand}\PYG{p}{()}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{        }\PYG{n}{k}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n+nb}{floor}\PYG{p}{(}\PYG{n+nb}{rand}\PYG{p}{()}\PYG{o}{*}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}
+
+\PYG{+w}{        }\PYG{c}{! ∆M̃ = J[s(i − 1, j + s(i + 1, j) + s(i, j − 1) + s(i, j + 1)].}
+\PYG{+w}{        }\PYG{n}{dM}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{),}\PYG{n}{k}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{),}\PYG{n}{k}\PYG{p}{)}
+\PYG{+w}{        }\PYG{n}{dM}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{dM}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{k}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{))}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{k}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{))}
+\PYG{+w}{        }\PYG{n}{dM}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{J}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{dM}
+
+\PYG{+w}{        }\PYG{c}{! spin(i, k) and dM are positions of the lattice, so}
+\PYG{+w}{        }\PYG{n}{e\PYGZus{}flip}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{  }\PYG{n}{exps}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{k}\PYG{p}{)}\PYG{o}{*}\PYG{n}{dM}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{if}\PYG{p}{(}\PYG{n+nb}{rand}\PYG{p}{()}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{e\PYGZus{}flip}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{then}
+\PYG{k}{            }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{)}
+\PYG{+w}{            }\PYG{c}{! Magnetization}
+\PYG{+w}{            }\PYG{n}{N}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{o}{*}\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{            }\PYG{n}{mag}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{mag}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mf}{2.0}\PYG{o}{*}\PYG{p}{(}\PYG{l+m+mf}{1.0e0}\PYG{o}{*}\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{)}\PYG{o}{/}\PYG{n}{N}\PYG{p}{)}
+\PYG{+w}{            }\PYG{c}{! print *, \PYGZdq{}\PYGZlt{}m\PYGZgt{} = \PYGZdq{}, mag}
+\PYG{+w}{            }\PYG{c}{! Change in the energy}
+\PYG{+w}{            }\PYG{n}{E}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{E}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{)}\PYG{o}{*}\PYG{n}{dM}
+\PYG{+w}{        }\PYG{k}{end if}
+\PYG{k}{      end subroutine }\PYG{n}{flip\PYGZus{}spin}
+
+\PYG{+w}{      }\PYG{k}{function }\PYG{n}{H\PYGZus{}0}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{ipbc}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{L}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{byte }\PYG{n}{lattice}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{dimension }\PYG{n}{ipbc}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n}{L}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{+w}{        }\PYG{n}{H\PYGZus{}0}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{        }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{           }\PYG{k}{do }\PYG{n}{k}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{               }\PYG{n}{adj}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{),}\PYG{n}{k}\PYG{p}{)}\PYG{o}{+}\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{),}\PYG{n}{k}\PYG{p}{)}
+\PYG{+w}{               }\PYG{n}{adj}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{adj}\PYG{o}{+}\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{k}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{))}\PYG{o}{+}\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{k}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{))}
+\PYG{+w}{               }\PYG{n}{H\PYGZus{}0}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{H\PYGZus{}0}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{adj}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{)}
+\PYG{+w}{           }\PYG{k}{end do}
+\PYG{k}{        end do}
+\PYG{+w}{      }\PYG{c}{!           E = (\PYGZhy{}J/2) * (s(i, j)[s(i − 1, j) + s(i + 1, j) + s(i, j − 1) + s(i, j + 1))}
+\PYG{+w}{        }\PYG{n}{H\PYGZus{}0}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{l+m+mf}{0.5}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{H\PYGZus{}0}
+\PYG{+w}{      }\PYG{k}{end function }\PYG{n}{H\PYGZus{}0}
+
+
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{initialize\PYGZus{}lattice}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}y}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{implicit }\PYG{k+kt}{real}\PYG{p}{(}\PYG{n}{m}\PYG{o}{\PYGZhy{}}\PYG{n}{m}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{L}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{byte }\PYG{n}{lattice}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{        }\PYG{c}{! initializing lattice}
+\PYG{+w}{        }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}x}
+\PYG{+w}{           }\PYG{k}{do }\PYG{n}{k}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}y}
+\PYG{+w}{              }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{           }\PYG{k}{end do}
+\PYG{k}{        end do}
+\PYG{k}{      end subroutine }\PYG{n}{initialize\PYGZus{}lattice}
+
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{initialize\PYGZus{}random\PYGZus{}lattice}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}y}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{implicit }\PYG{k+kt}{real}\PYG{p}{(}\PYG{n}{m}\PYG{o}{\PYGZhy{}}\PYG{n}{m}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{L}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{byte }\PYG{n}{lattice}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{        }\PYG{c}{! initializing lattice}
+\PYG{+w}{        }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}x}
+\PYG{+w}{            }\PYG{k}{do }\PYG{n}{k}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}y}
+\PYG{+w}{               }\PYG{k}{if}\PYG{p}{(}\PYG{n+nb}{rand}\PYG{p}{()}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mf}{0.5}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{then}
+\PYG{k}{                   }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{                }\PYG{k}{else}
+\PYG{k}{                    }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{k}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}
+\PYG{+w}{                }\PYG{k}{end if}
+\PYG{k}{            end do}
+\PYG{k}{        end do}
+\PYG{k}{      end subroutine }\PYG{n}{initialize\PYGZus{}random\PYGZus{}lattice}
+
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{total\PYGZus{}magnetization}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{mag}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{implicit }\PYG{k+kt}{real}\PYG{p}{(}\PYG{n}{m}\PYG{o}{\PYGZhy{}}\PYG{n}{m}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{L}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{byte }\PYG{n}{lattice}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{        }\PYG{n}{N}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{        }\PYG{n}{mag}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.0e0}
+\PYG{+w}{        }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{            }\PYG{k}{do }\PYG{n}{j}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{                }\PYG{n}{mag}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{mag}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mf}{1.0e0}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{j}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{end do}
+\PYG{k}{        end do}
+\PYG{k}{        }\PYG{n}{mag}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{mag}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{N}
+\PYG{+w}{      }\PYG{k}{end subroutine }\PYG{n}{total\PYGZus{}magnetization}
+
+\PYG{+w}{      }\PYG{k}{subroutine }\PYG{n}{write\PYGZus{}lattice}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{f\PYGZus{}name}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{f}\PYG{o}{\PYGZhy{}}\PYG{n}{f}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{L}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{byte }\PYG{n}{lattice}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k+kt}{character}\PYG{+w}{ }\PYG{o}{*}\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{n}{symb}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{        }\PYG{n}{symb}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}1\PYGZsq{}}
+\PYG{+w}{        }\PYG{n}{symb}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s+s1}{\PYGZsq{}0\PYGZsq{}}
+\PYG{+w}{        }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{           }\PYG{k}{write}\PYG{p}{(}\PYG{n}{f\PYGZus{}name}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}(100A2)\PYGZsq{}}\PYG{p}{)}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{symb}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,}\PYG{n}{j}\PYG{p}{)),}\PYG{n}{j}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{end do}
+
+\PYG{k}{      end subroutine }\PYG{n}{write\PYGZus{}lattice}
+\end{Verbatim}

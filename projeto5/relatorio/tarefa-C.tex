@@ -1,0 +1,83 @@
+\subsection{C.1 - Histerese }
+Segue abaixo a implementação da simulção de histerese:
+\input{codigos/codigo_tarefa_C1.tex}
+
+No gráfico (\ref{fig:c1_dbeta1}) temos o comportamento da energia média por spin na dinâmica do loop
+térmico e o gráfico de histerese, isto é, a energia média em relação à $\beta$ para 
+variações de $\Delta b = 0,001$. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{graficos/tarefa-3/graf-tarefa-C1-delta1.png}
+    \caption{À esquerda energia média por spin por iterações de Monte Carlo e à direita em relação à $\beta$.}
+    \label{fig:c1_dbeta1}
+\end{figure}
+
+
+A figura (\ref{fig:c1_dbeta2}) equivale a dinâmica como a anterior, mas com uma variação 
+$\Delta \beta = 0,0001$, que fornece um resultado com menos flutuações, sobretudo para as redes maiores.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{graficos/tarefa-3/graf-tarefa-C1-delta2.png}
+    \caption{À esquerda energia média por spin por iterações de Monte Carlo e à direita em relação à $\beta$.}
+    \label{fig:c1_dbeta2}
+\end{figure}
+
+Podemos observar nos gráficos que a região de histerese correspondem à um intervalo de $\beta$ entre $0,4$ e 
+$0,6$, mas apenas a partir dessas medidas não conseguimos ter uma boa precisão dessa medida.
+
+\subsection{C.2 - Temperatura crítica }
+
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\linewidth]{graficos/tarefa-3/graf-tarefa-C2-conf.png}
+    \caption{Configuração inicial para dinâmica utilizada na medida de temperatura crítica.}
+    \label{fig:c2_conf_inicial}
+\end{marginfigure}
+
+
+Modificação no código do item anterior: 
+
+\input{codigos/codigo_tarefa_C2.tex}
+
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\linewidth]{graficos/tarefa-3/graf-tarefa-C2-L80.png}
+    \caption{Dinâmica para L=80.}
+    \label{fig:c2_l80}
+\end{marginfigure}
+
+Partimos dos resultados do item anterior e tentamos obter a temperatura crítica do modelo. Para isso observamos
+a variação de energia no intervalo $\beta$ discutido antes, isto é, $0,4 < \beta < 0.6$. 
+A imagem (\ref{fig:c2_conf_inicial}) mostra a configuração inicial do sistema. Foram escolhidos alguns 
+valores de $\beta$ para executar a dinâmica de Monte Carlo. 
+
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\linewidth]{graficos/tarefa-3/graf-tarefa-C2-L60.png}
+    \caption{Dinâmica para L=60.}
+    \label{fig:c2_l60}
+\end{marginfigure}
+
+
+
+Nas figuras (\ref{fig:c2_l60}), (\ref{fig:c2_l80}) e (\ref{fig:c2_l100}) estão 
+as evoluções, em um intervalo de passos de Monte Carlo reduzido, da energia média por spin. 
+
+\clearpage
+Nota-se que as energias médias por spin sempre partem do mesmo valor no intervalo da histerese e a 
+que possui maior variação é a que corresponde à $\beta = 0.44$, esse é o $\beta$ relacionado à temperatura crítica $T_c = 1/\beta_c \approx 2,27$ .
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{graficos/tarefa-3/graf-tarefa-C2-L100.png}
+    \caption{Dinâmica para L=100.}
+    \label{fig:c2_l100}
+\end{figure}
+
+Além disso, pela (\ref{eq:calor_especifico}) podemos constatar que esse $\beta_c = 0,44$ também está associado à 
+um valor específico crítico no modelo. 

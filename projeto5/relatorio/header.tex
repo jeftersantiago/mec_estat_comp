@@ -1,0 +1,54 @@
+\usepackage[utf8]{inputenc}
+
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{xcolor}
+\usepackage{amssymb}
+
+\usepackage{caption}
+
+\usepackage{indentfirst}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage[brazil]{babel}
+\usepackage{minted}
+\geometry{
+  a4paper,
+  total={170mm,350mm},
+  left=10mm,
+  top=5mm,
+  bottom=30mm,
+  textwidth=.60\paperwidth}
+
+\iflarger
+  \AtBeginDocument{%
+  \fontsize{14}{16}\selectfont
+  }
+%\else
+\fi
+
+
+\definecolor{LightGray}{gray}{0.97}
+
+\setminted[fortran]{  
+    framesep=2mm,
+    baselinestretch=1.2,
+    bgcolor=LightGray,
+    fontsize=\footnotesize,
+    linenos,
+} 
+
+\graphicspath{ ./graficos/}
+
+\hypersetup{
+  pdfauthor={Jefter Santiago},
+  pdftitle={Projeto 5 - Simulações de Monte Carlo},
+  pdfcreator={Jefter Santiago}, 
+  colorlinks=true,    % Color links instead of boxes
+  linkcolor=blue,     % Color of internal links
+  citecolor=green,    % Color of citation links
+  urlcolor=blue,      % Color of URLs
+}

@@ -1,0 +1,65 @@
+\begin{minted}{fortran}
+
+    open(1, file="saidas/tarefa-1/saida-tarefa-A1-conf-L60.dat")
+    open(3, file="saidas/tarefa-1/saida-tarefa-A1-conf-L100.dat")
+    open(5, file="saidas/tarefa-1/saida-tarefa-A2-conf-L60.dat")
+    open(7, file="saidas/tarefa-1/saida-tarefa-A2-conf-L100.dat")
+
+    open(2, file="saidas/tarefa-1/saida-tarefa-A1-energia-L60.dat")
+    open(4, file="saidas/tarefa-1/saida-tarefa-A1-energia-L100.dat")
+    open(6, file="saidas/tarefa-1/saida-tarefa-A2-energia-L60.dat")
+    open(8, file="saidas/tarefa-1/saida-tarefa-A2-energia-L100.dat")
+    
+    call tarefa1(60, 3.0, 1, 2)
+    call tarefa1(60, 0.1, 5, 4)
+
+    call tarefa1(100, 3.0, 3, 6)
+    call tarefa1(100, 0.1, 7, 8)
+
+    do i = 1, 8
+        close(i)    
+    end do
+    end
+
+    subroutine tarefa1(L_real, beta, fname1, fname2)
+        implicit integer(f-f)
+        implicit real(m-m)
+        parameter(L = 100)
+
+        dimension exps(-4:4)
+        byte lattice(1:L, 1:L)
+        ! periodic boundary conditions
+        dimension ipbc(0:L+1)
+        ! this or using mod
+
+        N = L_real * L_real
+        ! setting ipbc
+        do i = 1, L_real
+            ipbc(i) = i
+        end do  
+        ipbc(0) = L_real
+        ipbc(L_real+1) = 1
+
+        m = 0
+
+        call define_exponentials(exps, beta)
+
+        call initialize_lattice(lattice, L_real, L_real)
+
+         ! initial energy
+        E = H_0(lattice, ipbc, L_real)
+
+        write(fname2, *) 0, E
+        call srand(iseed)
+         ! intialize monte carlo dynamics
+        do k = 1, 3000
+            ! sweeps all configurations
+            ! randomly flips spins
+            do i = 1 , N
+               call flip_spin(lattice,ipbc,exps,E,m,L_real)
+            end do  
+            write(fname2, *) k, E / N
+        end do  
+        call write_lattice(lattice, L_real, fname1) 
+    end subroutine tarefa1
+\end{minted}

@@ -1,0 +1,49 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{    }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{p}{(}\PYG{n}{f}\PYG{o}{\PYGZhy{}}\PYG{n}{f}\PYG{p}{)}
+\PYG{+w}{    }\PYG{k}{implicit }\PYG{k+kt}{real}\PYG{p}{(}\PYG{n}{m}\PYG{o}{\PYGZhy{}}\PYG{n}{m}\PYG{p}{)}
+\PYG{+w}{    }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{L}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{)}
+\PYG{+w}{    }\PYG{k}{dimension }\PYG{n}{exps}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{4}\PYG{p}{:}\PYG{l+m+mi}{4}\PYG{p}{)}
+\PYG{+w}{    }\PYG{k}{byte }\PYG{n}{lattice}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{    }\PYG{c}{! periodic boundary conditions}
+\PYG{+w}{    }\PYG{k}{dimension }\PYG{n}{ipbc}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n}{L}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{    }\PYG{c}{! this or using mod}
+\PYG{+w}{    }\PYG{k}{open}\PYG{p}{(}\PYG{n}{unit}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}4/saida\PYGZhy{}tarefa\PYGZhy{}D.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{    }\PYG{k}{open}\PYG{p}{(}\PYG{n}{unit}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}4/saida\PYGZhy{}tarefa\PYGZhy{}MAG\PYGZus{}T.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{    }\PYG{n}{beta}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.5}
+\PYG{+w}{    }\PYG{k}{call }\PYG{n}{define\PYGZus{}exponentials}\PYG{p}{(}\PYG{n}{exps}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{beta}\PYG{p}{)}
+\PYG{+w}{    }\PYG{k}{do }\PYG{n}{L\PYGZus{}real}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{10}
+\PYG{+w}{        }\PYG{k}{print}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}L = \PYGZdq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{        }\PYG{k}{call }\PYG{n+nb}{srand}\PYG{p}{(}\PYG{l+m+mi}{3519}\PYG{p}{)}\PYG{+w}{ }\PYG{c}{! /L\PYGZus{}real+1)}
+\PYG{+w}{        }\PYG{n}{N}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{        }\PYG{c}{! setting ipbc}
+\PYG{+w}{        }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{            }\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{i}
+\PYG{+w}{        }\PYG{k}{end do}
+\PYG{k}{        }\PYG{n}{ipbc}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{        }\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{L\PYGZus{}real}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{        }\PYG{n}{mag}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.0e0}
+\PYG{+w}{        }\PYG{k}{call }\PYG{n}{initialize\PYGZus{}random\PYGZus{}lattice}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{call }\PYG{n}{total\PYGZus{}magnetization}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{mag}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+\PYG{+w}{        }\PYG{n}{n\PYGZus{}inversions}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{10000}
+\PYG{+w}{        }\PYG{n}{n\PYGZus{}curr}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{        }\PYG{n}{n\PYGZus{}time}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{        }\PYG{k}{do while}\PYG{p}{(}\PYG{n}{n\PYGZus{}curr}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{n}{n\PYGZus{}inversions}\PYG{p}{)}
+\PYG{+w}{            }\PYG{n}{mag\PYGZus{}prev}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{mag}
+\PYG{+w}{            }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{N}
+\PYG{+w}{                }\PYG{k}{call }\PYG{n}{flip\PYGZus{}spin}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{ipbc}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{exps}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{E}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{mag}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{end do}
+\PYG{k}{            }\PYG{n}{n\PYGZus{}time}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{n\PYGZus{}time}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{            }\PYG{c}{! Fazer o gráfico da magnetização aqui.}
+\PYG{+w}{            }\PYG{k}{if}\PYG{p}{(}\PYG{n}{mag\PYGZus{}prev}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{mag}\PYG{+w}{ }\PYG{o}{\PYGZlt{}}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{k}{then}
+\PYG{k}{                }\PYG{n}{t\PYGZus{}mean}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{t\PYGZus{}mean}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{n}{n\PYGZus{}time}
+\PYG{+w}{                }\PYG{n}{n\PYGZus{}time}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{0}
+\PYG{+w}{                }\PYG{n}{n\PYGZus{}curr}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{n\PYGZus{}curr}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\PYG{+w}{            }\PYG{k}{end if}
+\PYG{k}{        end do}
+\PYG{k}{        write}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{t\PYGZus{}mean}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{mag}
+\PYG{+w}{        }\PYG{n}{t\PYGZus{}mean}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{t\PYGZus{}mean}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{n\PYGZus{}inversions}
+\PYG{+w}{        }\PYG{k}{write}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{t\PYGZus{}mean}
+\PYG{+w}{    }\PYG{k}{end do}
+\PYG{k}{    close}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{    }\PYG{k}{end}
+\end{Verbatim}

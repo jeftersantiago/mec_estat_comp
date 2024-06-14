@@ -1,0 +1,26 @@
+Nessa tarefa o nosso interesse é estudar o fenômeno de quebra espontânea de simetria. 
+Queremos mostrar que o tempo que um sistema leva para mudar toda a orientação de magnetização cresce de forma 
+exponencial com a dimensão da malha utilizada. 
+Para isso foi implementado uma simulação que executa passos de Monte Carlo e contabiliza o intervalo 
+de tempo de Monte Carlo que o sistema leva para mudar a magnetização conforme o tamanho $L$ da rede aumenta. 
+
+O código em fortran para essa simulação está abaixo: 
+
+\input{codigos/codigo_tarefa_D.tex}
+
+Podemos ver pela figura(\ref{fig:d_graficos}) que o intervalo cresce de forma exponencial com 
+o tamanho $L$ da malha: 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{graficos/tarefa-4/graf-tarefa-D.png}
+    \caption{Gráfico do crescimento do intervalo $\langle T_\text{intervalo} \rangle$ em função de $L$ e ajuste linear.}
+    \label{fig:d_graficos}
+\end{figure}
+
+Para implementação com número de inversões da ordem de $10^4$ foi obtido o ajuste linear 
+$\ln\left(\langle T_{\text{intervalo}}(L)\rangle\right)  \approx 3,67 + 0,49 \cdot L$. 
+
+Essa dependência exponencial para que ocorra quebra da simetria talvez explique o que ocorre na simulação da tarefa B
+em que o sistema atinge o equilibrio mas a magnetização tem comportamento não usual. Aumentando o número de passos 
+de Monte Carlo naquela simulação pode resolver o aparente problema.

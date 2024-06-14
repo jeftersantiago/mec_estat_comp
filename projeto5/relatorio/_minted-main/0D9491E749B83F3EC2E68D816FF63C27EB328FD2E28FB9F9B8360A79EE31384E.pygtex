@@ -1,0 +1,85 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+
+\PYG{+w}{        }\PYG{k}{dimension }\PYG{n}{betas}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{l+m+mi}{5}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{betas}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{p}{(}\PYG{o}{/}\PYG{l+m+mf}{0.41}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{0.44}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{0.47}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{0.51}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mf}{0.55}\PYG{o}{/}\PYG{p}{))}
+
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L60\PYGZhy{}b1.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L60\PYGZhy{}b2.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L60\PYGZhy{}b3.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L60\PYGZhy{}b4.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L60\PYGZhy{}b5.dat\PYGZdq{}}\PYG{p}{)}
+
+\PYG{+w}{        }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{5}
+\PYG{+w}{            }\PYG{k}{call }\PYG{n}{tarefaC2}\PYG{p}{(}\PYG{l+m+mi}{60}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{betas}\PYG{p}{(}\PYG{n}{i}\PYG{p}{),}\PYG{+w}{ }\PYG{n}{i}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{close}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{end do}
+
+\PYG{k}{        open}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L80\PYGZhy{}b1.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L80\PYGZhy{}b2.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L80\PYGZhy{}b3.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L80\PYGZhy{}b4.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L80\PYGZhy{}b5.dat\PYGZdq{}}\PYG{p}{)}
+
+\PYG{+w}{        }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{5}
+\PYG{+w}{            }\PYG{k}{call }\PYG{n}{tarefaC2}\PYG{p}{(}\PYG{l+m+mi}{80}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{betas}\PYG{p}{(}\PYG{n}{i}\PYG{p}{),}\PYG{+w}{ }\PYG{n}{i}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{close}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{end do}
+
+\PYG{k}{        open}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L100\PYGZhy{}b1.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L100\PYGZhy{}b2.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L100\PYGZhy{}b3.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L100\PYGZhy{}b4.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}L100\PYGZhy{}b5.dat\PYGZdq{}}\PYG{p}{)}
+
+\PYG{+w}{        }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{5}
+\PYG{+w}{            }\PYG{k}{call }\PYG{n}{tarefaC2}\PYG{p}{(}\PYG{l+m+mi}{100}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{betas}\PYG{p}{(}\PYG{n}{i}\PYG{p}{),}\PYG{+w}{ }\PYG{n}{i}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{close}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{+w}{        }\PYG{k}{end do}
+\PYG{k}{        end}
+\PYG{k}{        subroutine }\PYG{n}{tarefaC2}\PYG{p}{(}\PYG{n}{L\PYGZus{}real}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{beta}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{fname}\PYG{p}{)}
+\PYG{c}{!               Tarefa B \PYGZhy{} Recozimento e quenching}
+\PYG{+w}{            }\PYG{k}{implicit }\PYG{k+kt}{integer}\PYG{p}{(}\PYG{n}{f}\PYG{o}{\PYGZhy{}}\PYG{n}{f}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{implicit }\PYG{k+kt}{real}\PYG{p}{(}\PYG{n}{j}\PYG{o}{\PYGZhy{}}\PYG{n}{j}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{m}\PYG{o}{\PYGZhy{}}\PYG{n}{m}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{parameter}\PYG{p}{(}\PYG{n}{L}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{100}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{dimension }\PYG{n}{exps}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{4}\PYG{p}{:}\PYG{l+m+mi}{4}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{byte }\PYG{n}{lattice}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{:}\PYG{n}{L}\PYG{p}{)}
+\PYG{+w}{            }\PYG{c}{! periodic boundary conditions}
+\PYG{+w}{            }\PYG{k}{dimension }\PYG{n}{ipbc}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{n}{L}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+
+\PYG{+w}{            }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{                }\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{i}
+\PYG{+w}{            }\PYG{k}{end do}
+
+\PYG{k}{            }\PYG{n}{ipbc}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{            }\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{L\PYGZus{}real}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+
+\PYG{+w}{            }\PYG{n}{N}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+
+\PYG{+w}{            }\PYG{n}{mag}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.0d0}
+
+\PYG{+w}{            }\PYG{k}{call }\PYG{n+nb}{srand}\PYG{p}{(}\PYG{n}{L\PYGZus{}real}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{l+m+mi}{392}\PYG{p}{)}
+
+\PYG{+w}{            }\PYG{c}{! half ordered / half random.}
+\PYG{+w}{            }\PYG{k}{call }\PYG{n}{initialize\PYGZus{}lattice}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{call }\PYG{n}{initialize\PYGZus{}random\PYGZus{}lattice}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{  }\PYG{n}{L\PYGZus{}real}\PYG{o}{/}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+
+\PYG{+w}{            }\PYG{k}{open}\PYG{p}{(}\PYG{l+m+mi}{99}\PYG{p}{,}\PYG{+w}{ }\PYG{k}{file}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+s+s2}{\PYGZdq{}saidas/tarefa\PYGZhy{}3/saida\PYGZhy{}tarefa\PYGZhy{}C2\PYGZhy{}conf.dat\PYGZdq{}}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{call }\PYG{n}{write\PYGZus{}lattice}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{99}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{close}\PYG{p}{(}\PYG{l+m+mi}{99}\PYG{p}{)}
+
+\PYG{+w}{            }\PYG{k}{call }\PYG{n}{total\PYGZus{}magnetization}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{mag}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+
+\PYG{+w}{            }\PYG{c}{! initial energy}
+\PYG{+w}{            }\PYG{n}{E}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{H\PYGZus{}0}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{ipbc}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+\PYG{+w}{            }\PYG{n}{dbeta}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mf}{0.01}
+\PYG{+w}{            }\PYG{k}{write}\PYG{p}{(}\PYG{n}{fname}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{E}\PYG{o}{/}\PYG{n}{N}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{E}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{N}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{E}\PYG{o}{/}\PYG{n}{N}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{o}{/}\PYG{n}{beta}\PYG{o}{**}\PYG{l+m+mi}{2}
+
+\PYG{+w}{            }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{l+m+mi}{3000}
+\PYG{+w}{                }\PYG{k}{call }\PYG{n}{define\PYGZus{}exponentials}\PYG{p}{(}\PYG{n}{exps}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{beta}\PYG{p}{)}
+\PYG{+w}{                }\PYG{k}{do }\PYG{n}{k}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{+w}{ }\PYG{p}{,}\PYG{+w}{ }\PYG{n}{N}
+\PYG{+w}{                    }\PYG{k}{call }\PYG{n}{flip\PYGZus{}spin}\PYG{p}{(}\PYG{n}{lattice}\PYG{p}{,}\PYG{n}{ipbc}\PYG{p}{,}\PYG{n}{exps}\PYG{p}{,}\PYG{n}{E}\PYG{p}{,}\PYG{n}{mag}\PYG{p}{,}\PYG{n}{L\PYGZus{}real}\PYG{p}{)}
+\PYG{+w}{                }\PYG{k}{end do}
+\PYG{k}{                write}\PYG{p}{(}\PYG{n}{fname}\PYG{p}{,}\PYG{+w}{ }\PYG{o}{*}\PYG{p}{)}\PYG{+w}{ }\PYG{n}{i}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{E}\PYG{o}{/}\PYG{n}{N}\PYG{p}{,}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{E}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{+w}{ }\PYG{o}{/}\PYG{+w}{ }\PYG{n}{N}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{p}{(}\PYG{n}{E}\PYG{o}{/}\PYG{n}{N}\PYG{p}{)}\PYG{o}{**}\PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{+w}{            }\PYG{k}{end do}
+\PYG{k}{        end subroutine }\PYG{n}{tarefaC2}
+\end{Verbatim}

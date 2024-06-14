@@ -1,0 +1,46 @@
+Nessa tarefa foi simulado a dinâmica de Monte Carlo para sistemas com temperaturas
+iniciais relativas à $\beta = 3$ e $\beta = 0.1$. Para temperaturas altas, $\beta$ pequeno, 
+é esperado que o sistema não atinja o equílibrio após a dinâmica. O oposto acontece com 
+a dinâmica de temperatura baixa, o sistema fica ordenado e a magnetização ficará nula.
+
+As simulação foram feitas para malhas de tamanhos $L = 60$ e $L = 100$. Segue abaixo a estrutura 
+a implementação das simulações:
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=\linewidth]{graficos/tarefa-1/graf-tarefa-A1-conf-L100.png}
+    \caption{Configuração final para malha de tamanho $L=100$.}
+    \label{fig:a1_l100}
+\end{marginfigure}
+\input{codigos/codigo_tarefa_A.tex}
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{graficos/tarefa-1/graf-tarefa-A2-conf-L60.png}
+    \caption{Configuração final para malha de tamanho L=60.}
+\end{marginfigure}
+
+\subsection{A.1 - $\beta = 3$}
+Podemos constatar pelas (\ref{fig:a1_l60}) e (\ref{fig:a1_l100}) que o sistema fica totalmente ordenado. 
+A magnetização do sistema é $\langle m \rangle = \pm 1$ dependendo da orientação da ordenação. 
+
+
+% Task 1 Graphs
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{graficos/tarefa-1/graf-tarefa-A1-conf-L60.png}
+    \caption{Configuração final para malha de tamanho $L=60$.}
+    \label{fig:a1_l60}
+\end{marginfigure}
+\subsection{A.2 - $\beta = 0.1$}
+Para temperaturas mais altas o sistema fica desordenado, sem uma orientação fixa para
+todos spins da malha, nesse caso a simetria vai existir magnetização mas essa é balanceada
+pelas orientações contrárias e se cancela. 
+
+Pelas figuras (\ref{fig:a2_l60}) e (\ref{fig:a2_l100}) podemos observar o estado final 
+do sistema para diferentes tamanhos de grade.
+
+\begin{marginfigure}[h!]
+    \centering
+    \includegraphics[width=0.7\linewidth]{graficos/tarefa-1/graf-tarefa-A2-conf-L100.png}
+    \caption{Configuração inicial para malha de tamanho L=100.}
+\end{marginfigure}

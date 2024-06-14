@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{+w}{    }\PYG{n}{N}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{    }\PYG{c}{! setting ipbc}
+\PYG{+w}{    }\PYG{k}{do }\PYG{n}{i}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{        }\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{i}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{i}
+\PYG{+w}{    }\PYG{k}{end do}
+\PYG{k}{    }\PYG{n}{ipbc}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{L\PYGZus{}real}
+\PYG{+w}{    }\PYG{n}{ipbc}\PYG{p}{(}\PYG{n}{L\PYGZus{}real}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{l+m+mi}{1}
+\end{Verbatim}

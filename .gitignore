@@ -12,6 +12,8 @@
 *.cb2
 .*.lb
 
+*.pygtex
+
 ## Intermediate documents:
 *.dvi
 *.xdv
@@ -294,6 +296,10 @@ TSWLatexianTemp*
 
 # xwatermark package
 *.xwm
+
+
+*.vscode
+*.dat
 
 # REVTeX puts footnotes in the bibliography by default, unless the nofootinbib
 # option is specified. Footnotes are the stored in a file with suffix Notes.bib.

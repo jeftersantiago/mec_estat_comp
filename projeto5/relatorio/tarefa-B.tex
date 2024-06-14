@@ -1,0 +1,65 @@
+\subsection{B.1 - \emph{Recozimento}}
+O programa desenvolvido para essa simulação está abaixo: 
+
+\begin{marginfigure}
+    \includegraphics[width=0.8\linewidth]{graficos/tarefa-2/graf-tarefa-B1-conf-inicial.png}
+    \caption{Configuração inicial da simulação. $\beta = 1/2$ }
+    \label{fig:b1_conf_inicial}
+\end{marginfigure}
+
+\input{codigos/codigo_tarefa_B1.tex}
+
+Fazendo evolução da temperatura de forma lenta, com $\Delta \beta = 0.001$ temos o processo de recozimento. 
+Partimo do sistema desordenado, com temperatura infinita e a cada passo de Monte Carlo provocamos uma variação
+de temperatura $\Delta \beta$. A figura (\ref{fig:b1_conf_inicial}) mostra a configuração inicial do sistema de spins.
+
+
+
+Estamos interessados em observar a energia média por spin. Pelo gráfico 
+abaixo(\ref{fig:tarefa_b1_graf_energia}) nota-se que a energia média parte de zero, pois o sistema 
+está completamente desordenado, e decresce até atingir  a energia limite em $-2$. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{graficos/tarefa-2/graf-tarefa-B1-mag-eng.png}
+    \caption{Energia média de spin por iterações de Monte Carlo.}
+    \label{fig:tarefa_b1_graf_energia}
+\end{figure}
+
+
+Além disso, temos a configuração final dos spins do sistema bidimensional(\ref{fig:b1_conf_final}). 
+Há uma faixa de magnetização na malha, a presença dela deve estar associada ao número de iterações de Monte Carlo feita
+utilizado na simulação ($3000$ passos) que não foi o bastante para o sistema ficar todo alinhado. 
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{graficos/tarefa-2/graf-tarefa-B1-conf-final.png}
+    \caption{Configuração final da malha 2D após dinâmica de recozimento.}
+    \label{fig:b1_conf_final}
+\end{marginfigure}
+
+% \clearpage
+\subsection{B.2 - \emph{Tempera}}
+O código dessa simulação é quase idêntico ao da tarefa anterior e está compilado abaixo: 
+\input{codigos/codigo_tarefa_B2.tex}
+
+Nessa simulação partimos da mesma configuração inicial que a anterior 
+e  variamos o $\beta$ de maneira brusca e o sistema pode não atingir o equiblirio. Foi utilizada 
+uma malha de tamanho $L= 90$ para essa simulação e mesmo número de passos. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{graficos/tarefa-2/graf-tarefa-B2-mag-eng.png}
+    \caption{Energia média de spin por iterações de Monte Carlo.}
+\end{figure}
+
+Nota-se que a energia média decaí muito mais rapidamente que no caso anterior(\ref{fig:tarefa_b1_graf_energia})
+e a configuração final consegue atingir o equiblirio(\ref{fig:b2_conf_final}). Diferentemente do processo anterior, na têmpera 
+os spins vizinhos conseguem se alinhar no tempo de Monte Carlo utilizado na simulação.
+
+\begin{marginfigure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{graficos/tarefa-2/graf-tarefa-B2-conf-final.png}
+    \caption{Configuração final para rede de spins na dinâmica de têmpera.}
+    \label{fig:b2_conf_final}
+\end{marginfigure}
