@@ -1,0 +1,58 @@
+\documentclass[a4paper, 13pt]{article}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{framed}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{blindtext}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{titling}
+\usepackage{titlesec}
+\usepackage[brazil]{babel}
+\definecolor{LightGray}{gray}{0.97}
+\usepackage{minted}
+\usepackage{xcolor}
+
+\setminted[fortran]{
+  framesep=2mm,
+  baselinestretch=1.2,
+  bgcolor=LightGray,
+  fontsize=\footnotesize,
+  linenos}
+  \graphicspath{{../graficos/}}
+\hypersetup{
+  pdfauthor={Jefter Santiago},
+  pdftitle={Projeto 6 - Dinâmica Molecular},
+  pdfcreator={Jefter Santiago}, 
+  pdflang={Portuguese},
+  colorlinks=true,    % Color links instead of boxes
+  linkcolor=blue,     % Color of internal links
+  citecolor=green,    % Color of citation links
+  urlcolor=blue,      % Color of URLs
+}
+\title{\color{blue}Projeto 6 - Dinâmica molecular}
+\author{Jefter Santiago (12559016)}
+\date{Entrega: 01/06/2024}
+\begin{document}
+\maketitle
+\section{Introdução}
+
+\input{introducao.tex}
+\section{Tarefa A}
+\input{tarefa-A.tex}
+\section{Tarefa B}
+\input{tarefa-B.tex}
+\section{Tarefa C}
+\input{tarefa-C.tex}
+\section{Tarefa D}
+\input{tarefa-D.tex}
+\section{Tarefa E}
+\input{tarefa-E.tex}
+\section{Tarefa F}
+\input{tarefa-F.tex}
+\end{document}
