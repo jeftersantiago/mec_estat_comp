@@ -20,7 +20,7 @@ run-e:
 	./tarefa-E/tarefa-e.exe
 tarefa-f:
 	gfortran tarefa-F/tarefa-f.f molecular_dynamics.f -o tarefa-F/tarefa-f.exe
-run-e:
+run-f:
 	./tarefa-F/tarefa-f.exe
 p6:
 	gfortran tarefa-A/tarefa-a.f molecular_dynamics.f -o tarefa-A/tarefa-a.exe
@@ -40,3 +40,8 @@ run-p6:
 
 run-all-graphs:
 	python3 graphs.py 
+
+tests:
+	gfortran tests.f molecular_dynamics.f -o tests.exe
+run-tests:
+	./tests.exe
