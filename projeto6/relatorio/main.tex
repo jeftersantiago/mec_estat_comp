@@ -18,6 +18,11 @@
 \usepackage{minted}
 \usepackage{xcolor}
 
+
+\usepackage{biblatex}
+\addbibresource{refs.tex}
+
+
 \setminted[fortran]{
   framesep=2mm,
   baselinestretch=1.2,
@@ -55,4 +60,8 @@
 \input{tarefa-E.tex}
 \section{Tarefa F}
 \input{tarefa-F.tex}
+
+
+\nocite{*}
+\printbibliography[title = Referências]
 \end{document}

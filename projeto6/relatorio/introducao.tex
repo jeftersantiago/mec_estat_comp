@@ -1,9 +1,34 @@
-
-
-
-
 Potencial de Lennard-Jonnes
 
 \begin{equation}
     \mathcal{U}(\vec{r}) = 4 \epsilon \left[ \left(\frac{\sigma}{r} \right)^12 - \left(\frac{\sigma}{r}\right)^6 \right]
 \end{equation}
+
+
+Com $ m = 1 $: 
+
+$$
+    a^{x}_{j} = \sum_{j = 1}^{N} \sum_{\ell \neq j}^{N} F_{j, \ell} \cos(\theta_{j, \ell})
+$$
+$$
+    a^{y}_{j} = \sum_{j = 1}^{N} \sum_{\ell \neq j}^{N} F_{j, \ell} \sin(\theta_{j, \ell})
+$$
+
+
+
+- Cálculo das componentes de aceleração 
+
+
+assim temos uma forma para calcular os senos e cossenos de $\theta_{j, \ell}$ 
+
+
+$$ \sin(\theta_{j, \ell}) = \frac{dy_{j, \ell}}{d_{j, \ell}} $$
+
+$$ \cos(\theta_{j, \ell}) = \frac{dx_{j, \ell}}{d_{j, \ell}} $$
+
+
+\subsection{Detalhes de implementação}
+
+
+
+
