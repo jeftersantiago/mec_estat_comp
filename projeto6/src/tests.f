@@ -21,7 +21,7 @@
       print *, "L = ", L
       print *, "L_real = ", 1d0 * L
 
-      dt = 0.2
+      dt = 0.02
       v0 = 1.0
       
       write(99, *) N, L, v0, dt
@@ -33,8 +33,8 @@
       end do 
 
       ! Dynamics 
-      do k = 1, 400
-            t = l * dt 
+      do k = 1, 1000
+            t = K * dt 
             acc(1) = 0d0 
             acc(2) = 0d0
             do i = 1, N 
@@ -45,11 +45,9 @@
                              call compute_acc(N,i,j,L,r_curr,acc,U)
                         end if
                   end do 
-                  
                   ! UPDATE POSITIONS
                   r_next(i,1) = 2*r_curr(i,1)-r_prev(i,1)+acc(1)*(dt**2)
                   r_next(i,2) = 2*r_curr(i,2)-r_prev(i,2)+acc(2)*(dt**2)      
-                  
                   ! APPLY PBC
                   !print *, "x_next", r_next(i, 1)
                   !print *, "y_next", r_next(i, 2)
@@ -57,7 +55,7 @@
                   print *, "x_mod = ", mod(r_next(i,1)+rL, rL)
                   print *, "y_mod = ", mod(r_next(i,2)+rL, rL)
                   !print *, "------------------"
-              
+
                   r_next(i,1) = mod(r_next(i,1)+rL, rL)
                   r_next(i,2) = mod(r_next(i,2)+rL, rL)
                   

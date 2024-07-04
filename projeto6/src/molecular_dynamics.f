@@ -45,38 +45,6 @@
             end do
       end subroutine initialize_particles
 
-      subroutine set_initial_positions(Ns,r_prev,r_curr,L,v,v0,dt)
-            implicit real*8(a-h, o-y)
-            parameter (pi = acos(-1.e0))
-            dimension r_prev(20, 2)
-            dimension r_curr(20, 2)
-            dimension v(20, 2)
-
-            call srand(1949412)
-      
-            isq = sqrt(1.0*Ns)
-            spacing = L / isq            
-            
-            ! Set initial position
-            do i = 1, Ns
-                  x = mod(i, isq)*spacing + spacing 
-                  y = ceiling(1d0*i/isq)*spacing - spacing/2 
-
-                  theta = 2*pi*rand()
-                  v(i, 1) = v0*cos(theta)
-                  v(i, 2) = v0*sin(theta)
-
-                  r_curr(i, 1)  = x
-                  r_curr(i, 2)  = y
-
-                  r_prev(i, 1) = r_curr(i, 1) - v(i, 1) * dt 
-                  r_prev(i, 2) = r_curr(i, 2) - v(i, 2) * dt 
-
-                  write(1, *) r_curr(i, 1), r_curr(i,2)
-                  write(2, *) v(i, 1), v(i, 2)
-            end do
-      end subroutine set_initial_positions
-
       ! Updates acceleration a = ax, ay 
       ! between particle i and all others
       subroutine compute_acc(N, i, j, L, r_curr,acc, U)
@@ -89,8 +57,8 @@
             print *, "x_i, x_j = ", r_curr(i,1), r_curr(j,1)
             print *, "y_i, y_j = ", r_curr(i,2), r_curr(j,2)
             
-            dx = r_curr(j, 1) - r_curr(i, 1)
-            dy = r_curr(j, 2) - r_curr(i, 2)
+            dx = r_curr(i, 1) - r_curr(j, 1)
+            dy = r_curr(i, 2) - r_curr(j, 2)
 
             !print *, "dy (before) = ", dy
             !print *, "dx (before) = ", dx
