@@ -42,6 +42,6 @@ run-all-graphs:
 	python3 graphs.py 
 
 tests:
-	gfortran tests.f -o tests.exe
+	gfortran tests.f molecular_dynamics.f -o tests.exe
 run-tests:
 	./tests.exe

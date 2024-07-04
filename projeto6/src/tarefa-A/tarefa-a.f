@@ -4,8 +4,10 @@
       dimension r_prev(20, 2)
       dimension r_curr(20, 2)
       dimension r_next(20, 2)
+      
       dimension v(20, 2)
       dimension acc(2)
+
       L = 10
       N = 20
       
@@ -18,35 +20,43 @@
       v0 = 1.0
 
       ! initial positions
-      call set_initial_positions(N, r_prev, r_curr, L, v, v0)
+      call set_initial_positions(N, r_prev, r_curr, L, v, v0, dt)
 
-      ! Dynamics 
+      ! write initial positions 
+
+      do i = 1, N 
+            write(3, *) 0d0, r_curr(i,1),r_curr(i, 2)
+            print *, v(i, 1), v(i, 2)
+      end do
+
+      ! Dynamics
       do l = 1, 200
+      
             t = l * dt 
-            ! calculates acceleration at time t
-            acc(1) = 0.0
-            acc(2) = 0.0
-
-            do i = 1, N 
-                  acc(1) = 0.0
-                  acc(2) = 0.0
-
+      
+            do i = 1, N
+                  acc(1) = 0d0
+                  acc(2) = 0d0
                   do j = 1, N
+                        acc(1) = 0d0
+                        acc(2) = 0d0
                         if(j /= i) then 
-                              call compute_acc(N,i,j,L,r_curr,acc, U)
+                              call compute_acc(N,i,j,L,r_curr,acc,U)
                         end if
                   end do
 
                   r_next(i,1) = 2*r_curr(i,1)-r_prev(i,1)+acc(1)*dt**2
                   r_next(i,2) = 2*r_curr(i,2)-r_prev(i,2)+acc(2)*dt**2
 
-                  r_next(i, 1) = mod(r_next(i, 1) + 1.0 * L, 1.0*L) 
-                  r_next(i, 2) = mod(r_next(i, 2) + 1.0 * L, 1.0*L)
-      
+                  r_next(i, 1) = mod(r_next(i, 1) + 1d0 * L, 1d0*L) 
+                  r_next(i, 2) = mod(r_next(i, 2) + 1d0 * L, 1d0*L)
+
                   ! Updates velocities 
                   v(i, 1) = (r_next(i, 1)- r_prev(i,1))/(2*dt)
                   v(i, 2) = (r_next(i, 2)- r_prev(i,2))/(2*dt)
+
             end do
+            
             do i = 1, N 
                   ! Updates positions. 
                   r_prev(i, 1) = r_curr(i, 1)
@@ -55,19 +65,12 @@
                   r_curr(i, 1) = r_next(i, 1) 
                   r_curr(i, 2) = r_next(i, 2)
             end do
-
-            if(mod(l, 3) == 0) then 
+            
+            !if(mod(l, 3) == 0) then 
                   do i = 1, N 
                         write(3, *) t, r_curr(i,1),r_curr(i, 2)
                         write(2, *) v(i, 1), v(i, 2)
                   end do
-                  ! energy 
-                  U = 0d0 
-                  K = 0d0 
-                  E = 0d0
-                  call compute_energy(N, v, r_curr, E, K, U)
-                  write(4, *) t, E, K/N, U 
-            end if
-      
+            !end if
       end do
       end
