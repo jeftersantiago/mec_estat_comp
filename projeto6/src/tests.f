@@ -33,7 +33,7 @@
       end do 
 
       ! Dynamics 
-      do k = 1, 1000
+      do k = 1, 400
             t = K * dt 
             acc(1) = 0d0 
             acc(2) = 0d0
