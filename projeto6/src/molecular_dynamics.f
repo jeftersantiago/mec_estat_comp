@@ -95,8 +95,8 @@
             !print *, "dy (before) = ", dy
             !print *, "dx (before) = ", dx
 
-            dx = dx - floor(dx/(1d0*L)+1.5) * L 
-            dy = dy - floor(dy/(1d0*L)+1.5) * L
+            dx = dx - floor(dx/L + .5) * L 
+            dy = dy - floor(dy/L + .5) * L
             
             !print *, "dy (after) = ", dy
             !print *, "dx (after) = ", dx

@@ -11,7 +11,7 @@
 
       L = 10
       rL = 10d0
-      N = 10
+      N = 20
 
       open(unit = 99, file="saidas/tarefa-A/parametros.dat")
       open(unit = 1, file="saidas/tarefa-A/posicoes-iniciais.dat")
@@ -21,7 +21,7 @@
       print *, "L = ", L
       print *, "L_real = ", 1d0 * L
 
-      dt = 0.5
+      dt = 0.2
       v0 = 1.0
       
       write(99, *) N, L, v0, dt
@@ -33,7 +33,7 @@
       end do 
 
       ! Dynamics 
-      do k = 1, 200
+      do k = 1, 400
             t = l * dt 
             acc(1) = 0d0 
             acc(2) = 0d0
