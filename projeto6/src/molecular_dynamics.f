@@ -47,15 +47,17 @@
 
       ! Updates acceleration a = ax, ay 
       ! between particle i and all others
-      subroutine compute_acc(N, i, j, L, r_curr,acc, U)
+      subroutine compute_acc(N, i, j, L, r_curr,acc, E_pot)
             implicit real*8(a-h, o-y)
             dimension r_curr(20, 2)
             dimension acc(2)
+
+            epsilon = 1e-3
             
-            print *, "---------------------"
+            !print *, "---------------------"
             !print *, "L = ", L
-            print *, "x_i, x_j = ", r_curr(i,1), r_curr(j,1)
-            print *, "y_i, y_j = ", r_curr(i,2), r_curr(j,2)
+            !print *, "x_i, x_j = ", r_curr(i,1), r_curr(j,1)
+            !print *, "y_i, y_j = ", r_curr(i,2), r_curr(j,2)
             
             dx = r_curr(i, 1) - r_curr(j, 1)
             dy = r_curr(i, 2) - r_curr(j, 2)
@@ -70,16 +72,19 @@
             !print *, "dx (after) = ", dx
 
             dist = sqrt(dx**2 + dy**2)  
-            print *, "dist = ", dist
+            !print *, "dist = ", dist
+            
             if(dist <= 3d0) then 
                   F = 24.0 * (2d0/dist**13 - 1d0/dist**7)
                   acc(1) = acc(1) + F * dx / dist 
                   acc(2) = acc(2) + F * dy / dist
             end if
+            !print *, "ax, ay = ", acc(1), acc(2)
+            !print *, "---------------------"
 
-            print *, "ax, ay = ", acc(1), acc(2)
-            print *, "---------------------"
-
+            if(dist > epsilon) then 
+                  E_pot = E_pot + 4 * (dist**(-12)-dist**(-6))
+            endif
       end subroutine compute_acc
 
       subroutine compute_energy(N, v, r, E, K, U)

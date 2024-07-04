@@ -1,4 +1,4 @@
-
+      ! MODULO DE TESTES.
 
 
       implicit real*8(a-h, o-y)
@@ -17,9 +17,11 @@
       open(unit = 1, file="saidas/tarefa-A/posicoes-iniciais.dat")
       open(unit = 2, file="saidas/tarefa-A/velocidades.dat")
       open(unit = 3, file="saidas/tarefa-A/evolucao-posicoes.dat")
+      open(unit = 4, file="saidas/tarefa-A/evolucao-energia.dat")
+      open(unit = 5, file="saidas/tarefa-B/velocidades.dat")
 
-      print *, "L = ", L
-      print *, "L_real = ", 1d0 * L
+      !print *, "L = ", L
+      !print *, "L_real = ", 1d0 * L
 
       dt = 0.02
       v0 = 1.0
@@ -33,16 +35,20 @@
       end do 
 
       ! Dynamics 
-      do k = 1, 400
-            t = K * dt 
+      do k = 1, 800
+            t = k * dt 
             acc(1) = 0d0 
             acc(2) = 0d0
+
+            E_pot = 0d0 
+            E_k = 0d0
+
             do i = 1, N 
                   acc(1) = 0d0 
                   acc(2) = 0d0
                   do j = 1, N 
                         if(i /= j) then
-                             call compute_acc(N,i,j,L,r_curr,acc,U)
+                             call compute_acc(N,i,j,L,r_curr,acc,E_pot)
                         end if
                   end do 
                   ! UPDATE POSITIONS
@@ -52,8 +58,8 @@
                   !print *, "x_next", r_next(i, 1)
                   !print *, "y_next", r_next(i, 2)
 
-                  print *, "x_mod = ", mod(r_next(i,1)+rL, rL)
-                  print *, "y_mod = ", mod(r_next(i,2)+rL, rL)
+                  !print *, "x_mod = ", mod(r_next(i,1)+rL, rL)
+                  !print *, "y_mod = ", mod(r_next(i,2)+rL, rL)
                   !print *, "------------------"
 
                   r_next(i,1) = mod(r_next(i,1)+rL, rL)
@@ -63,6 +69,7 @@
                   v(i, 1) = (r_next(i,1)-r_prev(i,1))/(2*dt)
                   v(i, 2) = (r_next(i,2)-r_prev(i,2))/(2*dt)
             end do
+
             ! SWAP VECTOR POSITIONS.
             do i = 1, N 
                   r_prev(i, 1) = r_curr(i, 1)
@@ -72,11 +79,23 @@
                   r_curr(i, 2) = r_next(i, 2)
             end do
 
+            ! TAREFA A 
             if(mod(k, 3) == 0) then
                   do i = 1, N 
-                        write(3, *) t, r_curr(i,1), r_curr(i, 2)
-                        write(2, *) v(i, 1), v(i, 2)
+                        write(3,*)t,r_curr(i,1),r_curr(i, 2)
                   end do
+            end if
+
+            v_quad = (v(i,1)**2+v(i,2)**2)
+            E_k = E_k + 0.5*v_quad
+            
+            if(k > 400) then 
+                  if(mod(k, 20) == 0) then
+                        do i = 1, N 
+                              v_mag = sqrt(v(i,1)**2+v(i,2)**2)
+                              write(5,*) k,  v_mag, v(i,1), v(i,2)
+                        end do
+                  end if
             end if
       end do
       end
