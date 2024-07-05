@@ -27,6 +27,7 @@
 
                         r_curr(k, 1) = (i-1)*x_spacing+x_offset
                         r_curr(k, 2) = (j-1)*y_spacing+y_offset
+                        
                         r_curr(k, 1) = r_curr(k,1)+(rand())*spacing
                         r_curr(k, 2) = r_curr(k,2)+(rand())*spacing
 

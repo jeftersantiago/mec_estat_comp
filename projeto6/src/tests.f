@@ -1,6 +1,4 @@
       ! MODULO DE TESTES.
-
-
       implicit real*8(a-h, o-y)
       parameter (pi = acos(-1.e0))
       dimension r_prev(20, 2)
@@ -15,10 +13,11 @@
 
       open(unit = 99, file="saidas/tarefa-A/parametros.dat")
       open(unit = 1, file="saidas/tarefa-A/posicoes-iniciais.dat")
-      open(unit = 2, file="saidas/tarefa-A/velocidades.dat")
+      !open(unit = 2, file="saidas/tarefa-A/velocidades.dat")
       open(unit = 3, file="saidas/tarefa-A/evolucao-posicoes.dat")
-      open(unit = 4, file="saidas/tarefa-A/evolucao-energia.dat")
+      !open(unit = 4, file="saidas/tarefa-A/evolucao-energia.dat")
       open(unit = 5, file="saidas/tarefa-B/velocidades.dat")
+      open(unit = 6, file="saidas/tarefa-B/posicoes.dat")
 
       !print *, "L = ", L
       !print *, "L_real = ", 1d0 * L
@@ -35,7 +34,7 @@
       end do 
 
       ! Dynamics 
-      do k = 1, 800
+      do k = 1, 2000
             t = k * dt 
             acc(1) = 0d0 
             acc(2) = 0d0
@@ -64,10 +63,38 @@
 
                   r_next(i,1) = mod(r_next(i,1)+rL, rL)
                   r_next(i,2) = mod(r_next(i,2)+rL, rL)
-                  
+
                   ! UPDATES VELOCITIES 
-                  v(i, 1) = (r_next(i,1)-r_prev(i,1))/(2*dt)
-                  v(i, 2) = (r_next(i,2)-r_prev(i,2))/(2*dt)
+                  !v(i, 1) = (r_next(i,1)-r_prev(i,1))/(2*dt)
+                  !v(i, 2) = (r_next(i,2)-r_prev(i,2))/(2*dt)
+
+                  ! PBC for velocity...
+                  !delta_r_x = r_next(i, 1) - r_prev(i, 1)
+                  !if (delta_r_x > L/2) then
+                  !      delta_r_x = delta_r_x - L
+                  !else if (delta_r_x < -L/2) then
+                  !      delta_r_x = delta_r_x + L
+                  !end if
+                  !delta_r_y = r_next(i, 2) - r_prev(i, 2)
+                  !if (delta_r_y > L/2) then
+                  !      delta_r_y = delta_r_y - L
+                  !else if (delta_r_y < -L/2) then
+                  !      delta_r_y = delta_r_y + L
+                  !end if
+
+                  delta_r_x = delta_pbc(r_next(i,1),r_prev(i,1),L)
+                  delta_r_y = delta_pbc(r_next(i,2),r_prev(i,2),L)
+
+                  ! UPDATE VELOCITIES using adjusted displacements
+                  v(i, 1) = delta_r_x / (2 * dt)
+                  v(i, 2) = delta_r_y / (2 * dt)
+
+                  if(v(i, 1) < -100 .or. v(i, 2) > 100) then 
+                        print *, "r_prev(i, 1) = ", r_prev(i, 1)
+                        print *, "r_next(i, 1) = ", r_next(i, 1)
+                        print *, "delta_r_x = ", delta_r_x
+                        print *, "delta_r_y = ", delta_r_y
+                  end if
             end do
 
             ! SWAP VECTOR POSITIONS.
@@ -89,13 +116,24 @@
             v_quad = (v(i,1)**2+v(i,2)**2)
             E_k = E_k + 0.5*v_quad
             
-            if(k > 400) then 
+            if(k > 1000) then 
                   if(mod(k, 20) == 0) then
-                        do i = 1, N 
+                        do i = 1, N
                               v_mag = sqrt(v(i,1)**2+v(i,2)**2)
                               write(5,*) k,  v_mag, v(i,1), v(i,2)
+                              write(6,*) k, r_curr(i,1), r_prev(i,1)
                         end do
                   end if
             end if
       end do
       end
+
+      function delta_pbc(r_next, r_prev,L)
+            implicit real*8(a-h, o-y)
+            delta_pbc = r_next - r_prev
+            if (delta_pbc > L/2) then
+                  delta_pbc = delta_pbc - L
+            else if (delta_pbc < -L/2) then
+                  delta_pbc = delta_pbc + L
+            end if
+      end function delta_pbc
