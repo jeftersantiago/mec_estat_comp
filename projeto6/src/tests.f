@@ -316,6 +316,122 @@
       close(77)
       close(78)
       close(79)
+
+
+
+      ! TAREFA F 
+      open(unit=85, file="saidas/tarefa-F/parametros.dat")
+      open(unit=86, file="saidas/tarefa-F/posicoes-iniciais.dat")
+      open(unit=87, file="saidas/tarefa-F/evolucao-posicoes-1.dat")
+      open(unit=88, file="saidas/tarefa-F/evolucao-posicoes-2.dat")
+      open(unit=89, file="saidas/tarefa-F/evolucao-posicoes-3.dat")
+
+      ! Reset variables: 
+      r_prev = 0
+      r_curr = 0
+      r_next = 0
+      v = 0
+
+      L = 4
+      rL = 4d0
+      N = 16
+
+      dt = 5e-3
+      v0 = 0.2
+
+      write(75, *) N, L, v0, dt 
+      close(75)
+
+      ! Initialize particles 
+
+      n_cols = ceiling(sqrt(N*1d0))
+      n_rows = ceiling((N*1d0)/(n_cols*1d0)) 
+      
+      ! Spacing 1/4 
+      x_spacing = L/(1d0*n_cols)
+      y_spacing = L/(1d0*n_rows)
+      spacing = min(x_spacing, y_spacing)/4.0 
+      
+      ! Centering in the grid
+      x_offset = x_spacing / 2.0 
+      y_offset = y_spacing / 2.0
+      
+      call srand(3512341)
+
+      k = 1 
+      do j = 1, n_rows 
+            do i = 1, n_cols 
+                  r_curr(k, 1) = (i-1)*x_spacing+x_offset
+                  r_curr(k, 2) = (j-1)*y_spacing+y_offset
+                  
+                  r_curr(k, 1) = r_curr(k,1)+(rand())*spacing
+                  r_curr(k, 2) = r_curr(k,2)+(rand())*spacing
+                  
+                  theta = 2*pi*rand()
+                  
+                  v(k, 1) = v0*cos(theta)
+                  v(k, 2) = v0*sin(theta)
+                  
+                  r_prev(k, 1) = r_curr(k, 1) - v(k, 1) * dt 
+                  r_prev(k, 2) = r_curr(k, 2) - v(k, 2) * dt 
+                  k=k+1
+            end do 
+      end do
+
+      do i = 1, N 
+            write(76, *) r_curr(i, 1), r_curr(i, 2)
+      end do 
+      close(76)
+
+      ! Dynamics 
+      do k = 1, 3200 
+            t = k * dt 
+            acc(1) = 0d0 
+            acc(2) = 0d0
+            do i = 1, N 
+                  acc(1) = 0d0 
+                  acc(2) = 0d0
+                  do j = 1, N 
+                        if(i /= j) then
+                             call compute_acc(N,i,j,L,r_curr,acc,E_pot)
+                        end if
+                  end do 
+                  ! UPDATE POSITIONS
+                  r_next(i,1) = 2*r_curr(i,1)-r_prev(i,1)+acc(1)*(dt**2)
+                  r_next(i,2) = 2*r_curr(i,2)-r_prev(i,2)+acc(2)*(dt**2) 
+
+                  ! APPLY PBC
+                  r_next(i,1) = mod(r_next(i,1)+rL, rL)
+                  r_next(i,2) = mod(r_next(i,2)+rL, rL)
+
+                  delta_r_x = delta_pbc(r_next(i,1),r_prev(i,1),L)
+                  delta_r_y = delta_pbc(r_next(i,2),r_prev(i,2),L)
+
+                  ! UPDATE VELOCITIES using adjusted displacements
+                  v(i, 1) = delta_r_x / (2 * dt)
+                  v(i, 2) = delta_r_y / (2 * dt)
+            end do
+            r_prev(:, 1) = r_curr(:, 1)
+            r_prev(:, 2) = r_curr(:, 2)
+            
+            r_curr(:, 1) = r_next(:, 1)
+            r_curr(:, 2) = r_next(:, 2)
+
+            
+            if(k < 21) then 
+                  do i = 1, N 
+                        write(77,*) k, r_curr(i,1),r_curr(i,2)
+                  end do
+            else if (k > 40 .and. k < 81 .and. mod(k,3)==0) then 
+                  do i = 1, N 
+                        write(78,*) k, r_curr(i,1),r_curr(i,2)
+                  end do
+            else if (k > 2600 .and. k < 3200 .and. mod(k,10)==0) then 
+                  do i = 1, N 
+                        write(79,*) k, r_curr(i,1),r_curr(i,2)
+                  end do
+            end if 
+      end do 
       end
 
 
