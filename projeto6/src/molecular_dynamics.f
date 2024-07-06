@@ -86,30 +86,18 @@
             if(dist > epsilon) then 
                   E_pot = E_pot + 4 * (dist**(-12)-dist**(-6))
             endif
+
       end subroutine compute_acc
 
-      subroutine compute_energy(N, v, r, E, K, U)
-            implicit real*8(a-h, o-y, k-k)
-            dimension r(20, 2)
-            dimension v(20, 2)
 
-            do i = 1, N 
-                  K = K + 0.5*sqrt((v(i, 1)**2 + v(i, 2)**2))**2
-                  E = E + K 
-                  do j = 1, N 
-                        if(j/=i) then 
-                              dx = r(i, 1) - r(j, 1)
-                              dy = r(i, 2) - r(j, 2)
-
-                              dx = dx - floor(dx/L + 0.5) * L 
-                              dy = dy - floor(dy/L + 0.5) * L
-                              dist = sqrt(dx**2 + dy**2)
-
-                              if(dist <= 3.0) then 
-                                    U = U + 4*(dist**(-12)-dist**(-6))
-                                    E = E + U
-                              end if 
-                        end if
-                  end do
-            end do
-      end subroutine compute_energy
+      ! Submodules for molecular dynamic simulations
+      ! Velocity delta 
+      function delta_pbc(r_next, r_prev,L)
+            implicit real*8(a-h, o-y)
+            delta_pbc = r_next - r_prev
+            if (delta_pbc > L/2) then
+                  delta_pbc = delta_pbc - L
+            else if (delta_pbc < -L/2) then
+                  delta_pbc = delta_pbc + L
+            end if
+      end function delta_pbc
