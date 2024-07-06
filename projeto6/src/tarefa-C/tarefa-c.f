@@ -6,22 +6,21 @@
       dimension r_next(20, 2)
       dimension v(20, 2)
       dimension acc(2)
-      
+
       L = 10
       rL = 10d0
       N = 20
-      
+
+      open(unit = 3, file="saidas/tarefa-C/evolucao-posicoes.dat")
       open(unit = 5, file="saidas/tarefa-C/velocidades.dat")
       open(unit = 6, file="saidas/tarefa-C/posicoes.dat")
-      
-      !print *, "L = ", L
-      !print *, "L_real = ", 1d0 * L
+
       dt = 0.02
       v0 = 1.0
       write(99, *) N, L, v0, dt
-      
+
       call initialize_particles(N, L, r_curr,r_prev, v, v0)
-      
+
       v = 0 
       do i = 1, N/2
             v(i, 1) = v0
@@ -29,11 +28,11 @@
       end do
       ! Dynamics 
       do k = 1, 5000
-      
+
         t = k * dt 
         acc(1) = 0d0 
         acc(2) = 0d0
-      
+
         do i = 1, N 
             acc(1) = 0d0 
             acc(2) = 0d0
@@ -54,7 +53,7 @@
             v(i, 1) = delta_r_x / (2 * dt)
             v(i, 2) = delta_r_y / (2 * dt)
         end do
-      
+
         ! SWAP VECTOR POSITIONS.
         do i = 1, N 
               r_prev(i, 1) = r_curr(i, 1)
@@ -63,11 +62,16 @@
               r_curr(i, 2) = r_next(i, 2)
         end do
       
-        if(mod(k, 20) == 0) then
-              do i = 1, N
-                    v_mag = sqrt(v(i,1)**2+v(i,2)**2)
-                    write(5,*) k,  v_mag, v(i,1), v(i,2), t
-              end do
-        end if
+        if(k > 1000) then 
+
+            if(mod(k, 20) == 0) then
+                  do i = 1, N
+                      v_mag = sqrt(v(i,1)**2+v(i,2)**2)
+                      write(5,*) k,  v_mag, v(i,1), v(i,2), t
+                      write(3,*) t,r_curr(i,1),r_curr(i, 2)
+                  end do
+            end if
+        endif
+
       end do
       end
