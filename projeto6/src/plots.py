@@ -294,5 +294,36 @@ ani.save(graphs_path + 'tarefa-C/evolucao.gif', writer='imagemagick', dpi=DPI)
 
 
 """
-    PLOTS TAREFA 
+    PLOTS TAREFA E 
 """
+
+for i in range(1, 4):
+    fname_positions = f'saidas/tarefa-E/evolucao-posicoes-{i}.dat'
+    data = np.loadtxt(fname_positions)
+    params = np.loadtxt("saidas/tarefa-E/parametros.dat")
+    num_particles = int(params[0])
+    L = params[1]
+    dt = params[3]
+
+
+    num_timesteps = data.shape[0] // num_particles
+
+    data = data.reshape((num_timesteps, num_particles, -1))
+
+    fig, ax = plt.subplots(1, 1, figsize=(8,8), facecolor="lightgray")
+
+    colors = plt.cm.jet(np.linspace(0, 1, num_particles))
+
+    for i in range(num_particles):
+        x = data[:, i, 1]
+        y = data[:, i, 2]
+        ax.plot(x, y, 'o', markersize=4,markeredgewidth=.3, color='black', markerfacecolor=colors[i], label=f'Particle {i+1}')
+
+    plt.grid(which="major", linewidth=0.3)
+    plt.grid(which="minor", linewidth=0.3)
+    plt.minorticks_on()
+    ax.set_xlim(0, L)
+    ax.set_ylim(0, L)
+
+    plt.savefig(graphs_path + f'tarefa-E/posicoes-finais-{i}.png', bbox_inches='tight', dpi=DPI)
+    #plt.show()
