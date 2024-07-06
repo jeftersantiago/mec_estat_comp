@@ -33,13 +33,10 @@
       
       do i = 1, N
             write(1, *) r_curr(i, 1), r_curr(i, 2) 
+            write(3, *) 0d0, r_curr(i,1), r_curr(i, 2)
       end do
       close(1)
 
-      do i = 1, N
-            write(3, *) 0d0, r_curr(i,1), r_curr(i, 2)
-      end do 
-      
       ! Dynamics 
       do k = 1, 5000
 
@@ -90,7 +87,7 @@
                         v_mag = sqrt(v(i,1)**2+v(i,2)**2)
                         write(5,*) k, v_mag, v(i,1), v(i,2)
                         write(9,*) .5d0 * v_mag**2
-                        write(6,*) t, r_curr(i,1),r_curr(i, 2)
+                        write(6,*) k, r_curr(i,1),r_curr(i, 2)
                   end do
             end if
       end do
@@ -197,7 +194,7 @@
                         v_mag = sqrt(v(i,1)**2+v(i,2)**2)
                         write(7,*) k,  v_mag, v(i,1), v(i,2)
                         write(8,*) .5d0 * v_mag**2
-                        write(4,*) t,r_curr(i,1),r_curr(i, 2)
+                        write(4,*) k, r_curr(i,1),r_curr(i, 2)
                   end do
             end if
       end do
@@ -207,7 +204,10 @@
       ! TAREFA E 
       open(unit=75, file="saidas/tarefa-E/parametros.dat")
       open(unit=76, file="saidas/tarefa-E/posicoes-iniciais.dat")
-      open(unit=77, file="saidas/tarefa-E/evolucao-posicoes.dat")
+      open(unit=77, file="saidas/tarefa-E/evolucao-posicoes-1.dat")
+      open(unit=78, file="saidas/tarefa-E/evolucao-posicoes-2.dat")
+      open(unit=79, file="saidas/tarefa-E/evolucao-posicoes-3.dat")
+
       ! Reset variables: 
       r_prev = 0
       r_curr = 0
@@ -219,7 +219,7 @@
       N = 16
 
       dt = 5e-3
-      v0 = 1
+      v0 = 0.6
 
       write(75, *) N, L, v0, dt 
       close(75)
@@ -256,7 +256,6 @@
                   
                   r_prev(k, 1) = r_curr(k, 1) - v(k, 1) * dt 
                   r_prev(k, 2) = r_curr(k, 2) - v(k, 2) * dt 
-                  
                   k=k+1
             end do 
       end do
@@ -299,15 +298,26 @@
             
             r_curr(:, 1) = r_next(:, 1)
             r_curr(:, 2) = r_next(:, 2)
-            if(mod(k, 10) == 0) then
-                  do i = 1, N
-                        write(77,*) k, t, r_curr(i,1),r_curr(i, 2)
+
+            if(k < 21) then 
+                  do i = 1, N 
+                        write(77,*) k, r_curr(i,1),r_curr(i,2)
                   end do
-            end if
+            else if (k > 40 .and. k < 81 .and. mod(k,3)==0) then 
+                  do i = 1, N 
+                        write(78,*) k, r_curr(i,1),r_curr(i,2)
+                  end do
+            else if (k > 2600 .and. k < 3200 .and. mod(k,10)==0) then 
+                  do i = 1, N 
+                        write(79,*) k, r_curr(i,1),r_curr(i,2)
+                  end do
+            end if 
       end do 
       close(77)
-
+      close(78)
+      close(79)
       end
+
 
       ! Submodules for molecular dynamic simulations
       ! Velocity delta 
