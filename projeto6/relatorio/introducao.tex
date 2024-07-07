@@ -2,33 +2,39 @@ Potencial de Lennard-Jonnes
 
 \begin{equation}
     \mathcal{U}(\vec{r}) = 4 \epsilon \left[ \left(\frac{\sigma}{r} \right)^12 - \left(\frac{\sigma}{r}\right)^6 \right]
+    \label{eq:potencial_lanner_jones}
 \end{equation}
 
+Utilizando unidades genericas tal que $m=1$, então, pela segunda lei de Newton temos que as componentes 
+da velocidade são  
 
-Com $ m = 1 $: 
-
-$$
+\begin{align}
     a^{x}_{j} = \sum_{j = 1}^{N} \sum_{\ell \neq j}^{N} F_{j, \ell} \cos(\theta_{j, \ell})
-$$
-$$
     a^{y}_{j} = \sum_{j = 1}^{N} \sum_{\ell \neq j}^{N} F_{j, \ell} \sin(\theta_{j, \ell})
-$$
+\end{align}
 
-
-
-- Cálculo das componentes de aceleração 
-
-
-assim temos uma forma para calcular os senos e cossenos de $\theta_{j, \ell}$ 
+porém é mais interessante encontrar uma relação que não envolva as funções trigonométricas. De fato, 
+podemos escrever os senos e cossenos de $\theta_{j, \ell}$ 
 
 
 $$ \sin(\theta_{j, \ell}) = \frac{dy_{j, \ell}}{d_{j, \ell}} $$
-
 $$ \cos(\theta_{j, \ell}) = \frac{dx_{j, \ell}}{d_{j, \ell}} $$
 
 
+
+
+\subsubsection{Algoritmo de Verlet}
+
+\begin{align}
+    t &= n \Delta t \\ 
+    x_i(n+1) &= 2 x_i (n) - x_i (n-1)+ a_i^x (n) (\Delta t)^2, n \ge 1 \\ 
+    y_i(n+1) &= 2 y_i (n) - y_i (n-1)+ a_i^y (n) (\Delta t)^2, n \ge 1 \\  
+    x_i(1) &= x(0) + v_i^x (0) \Delta t \\ 
+    y_i(1) &= y(0) + v_i^y (0) \Delta t \\ 
+    v_i^x (n) &= \left( x_i(n+1) - x_i(n-1) \right) /(2 \Delta t)\\
+    v_i^y (n) &= \left(  y_i(n+1) - y_i(n-1) \right) /(2 \Delta t)
+\end{align}
 \subsection{Detalhes de implementação}
 
-
-
-
+Módulo para simulações de dinâmica molecular
+\input{codigos/geral.tex}

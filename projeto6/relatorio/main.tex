@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{hyperref}
+\usepackage{verbatim}
 \usepackage{amsmath}
 \usepackage{titling}
 \usepackage{titlesec}
@@ -29,7 +30,7 @@
   bgcolor=LightGray,
   fontsize=\footnotesize,
   linenos}
-  \graphicspath{{../graficos/}}
+  \graphicspath{{../src/graficos/}}
 \hypersetup{
   pdfauthor={Jefter Santiago},
   pdftitle={Projeto 6 - Dinâmica Molecular},
@@ -42,11 +43,10 @@
 }
 \title{\color{blue}Projeto 6 - Dinâmica molecular}
 \author{Jefter Santiago (12559016)}
-\date{Entrega: 01/06/2024}
+%\date{Entrega: 01/06/2024}
 \begin{document}
 \maketitle
 \section{Introdução}
-
 \input{introducao.tex}
 \section{Tarefa A}
 \input{tarefa-A.tex}
@@ -60,6 +60,13 @@
 \input{tarefa-E.tex}
 \section{Tarefa F}
 \input{tarefa-F.tex}
+
+\section{Conclusão?} 
+
+
+Por fim, o arquivo \verb|tests.f| é um compilado de todas simulações desenvolvidas nesse projeto 
+e pode ser compilado para rodar todas elas de uma vez. Além disso o script \verb|plots.py| cria todos 
+os gráficos e gifs desse trabalho.
 
 
 \nocite{*}

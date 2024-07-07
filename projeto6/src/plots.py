@@ -50,6 +50,7 @@ for i in range(num_particles):
     ax.plot(x, y, 'o', markersize=9, color='black', markerfacecolor=colors[i], label=f'Particle {i+1}')
 
 plt.savefig(graphs_path+'tarefa-A/posicoes-iniciais.png', dpi=400, bbox_inches = 'tight')
+plt.close()
 
 fname_positions = 'saidas/tarefa-A/evolucao-posicoes.dat'
 data = np.loadtxt(fname_positions)
@@ -76,6 +77,7 @@ ax.set_ylim(0, 10)
 
 plt.savefig(graphs_path+'tarefa-A/posicoes-finais.png', bbox_inches = 'tight')#  dpi=DPI)
 # plt.show()
+plt.close()
 
 # GIF 
 num_timesteps = data.shape[0] // num_particles
@@ -96,16 +98,49 @@ def init():
     particles.set_data([], [])
     return particles,
 
-skip = 1   # Adjust this value to skip more or fewer frames
-
 def animate(i):
-    x = data[i * skip, :, 1]
-    y = data[i * skip, :, 2]
+    x = data[i, :, 1]
+    y = data[i, :, 2]
     particles.set_data(x, y)
     return particles,
 
-ani = animation.FuncAnimation(fig, animate, frames = num_timesteps // skip, init_func=init, blit=True)
+ani = animation.FuncAnimation(fig, animate, frames = num_timesteps, init_func=init, blit=True)
 ani.save(graphs_path + 'tarefa-A/evolucao.gif', writer='imagemagick', dpi=DPI)
+plt.close()
+
+
+fname = "saidas/tarefa-A/energia.dat"
+data = np.loadtxt(fname)
+params = np.loadtxt("saidas/tarefa-A/parametros.dat")
+
+num_particles = int(params[0])
+
+L = params[1]
+dt = params[3]
+
+steps = data[:, 0]
+E = data[:, 1]
+
+fig , ax =  plt.subplots(1, 1, figsize=(5, 5), facecolor="lightgray")
+
+font = {
+        'weight' : 'bold',
+        'size'   : 16}
+plt.rc('text', usetex=True)
+plt.rc('text.latex', preamble=r'\usepackage{amsmath}')
+plt.rc('font', **font) 
+plt.legend()
+
+ax.plot(steps, E, 'bo-', label=f"$E = T + \\mathcal\\{'U'}$")
+ax.set_xlabel("Iteração")
+ax.set_ylabel(f"$E$")
+
+ax.grid(which="major", linewidth=0.3)
+ax.minorticks_on()
+ax.grid(which="minor", linewidth=0.3)
+plt.savefig(graphs_path+'tarefa-A/energia.png', bbox_inches = 'tight')#  dpi=DPI)
+
+plt.close()
 
 
 """
@@ -163,7 +198,7 @@ for i, (t_start, t_end) in enumerate(intervals):
 
 plt.tight_layout()
 plt.savefig(graphs_path+'tarefa-B/distribuicoes-b.png', bbox_inches = 'tight', dpi=DPI)
-
+plt.close()
 
 filename = 'saidas/tarefa-B/evolucao-posicoes.dat'
 data = np.loadtxt(filename)
@@ -190,17 +225,16 @@ def init():
     particles.set_data([], [])
     return particles,
 
-skip = 1 
 
 def animate(i):
-    x = data[i * skip, :, 1]
-    y = data[i * skip, :, 2]
+    x = data[i, :, 1]
+    y = data[i, :, 2]
     particles.set_data(x, y)
     return particles,
 
-ani = animation.FuncAnimation(fig, animate, frames = num_timesteps // skip, init_func=init, blit=True)
+ani = animation.FuncAnimation(fig, animate, frames = num_timesteps, init_func=init, blit=True)
 ani.save(graphs_path + 'tarefa-B/evolucao.gif', writer='imagemagick', dpi=DPI)
-
+plt.close()
 """
     PLOTS TAREFA-C
 """
@@ -281,22 +315,57 @@ def init():
     particles.set_data([], [])
     return particles,
 
-skip = 1
-
 def animate(i):
-    x = data[i * skip, :, 1]
-    y = data[i * skip, :, 2]
+    x = data[i, :, 1]
+    y = data[i, :, 2]
     particles.set_data(x, y)
     return particles,
 
-ani = animation.FuncAnimation(fig, animate, frames = num_timesteps // skip, init_func=init, blit=True)
+ani = animation.FuncAnimation(fig, animate, frames = num_timesteps , init_func=init, blit=True)
 ani.save(graphs_path + 'tarefa-C/evolucao.gif', writer='imagemagick', dpi=DPI)
-
+plt.close()
 
 """
     PLOTS TAREFA E 
 """
 
+# data = np.loadtxt("saidas/tarefa-E/evolucao-posicoes.dat")
+# params = np.loadtxt("saidas/tarefa-E/parametros.dat")
+# 
+# num_particles = int(params[0])
+# L = int(params[1])
+# 
+# num_particles = int(params[0])
+# L = int(params[1])
+# 
+# num_timesteps = data.shape[0] // num_particles
+# 
+# data = data.reshape((num_timesteps, num_particles, -1))
+# 
+# fig, ax = plt.subplots(1, 1, figsize=(5, 5), facecolor="lightgray")
+# particles, = ax.plot([], [], 'bo', color='black', marker='o', markerfacecolor='white', linestyle='', markersize=15)
+# 
+# plt.grid(which="major", linewidth=0.3)
+# plt.grid(which="minor", linewidth=0.3)
+# plt.minorticks_on()
+# 
+# ax.set_xlim(0, L)
+# ax.set_ylim(0, L)
+# 
+# def init():
+#     particles.set_data([], [])
+#     return particles,
+# 
+# def animate(i):
+#     x = data[i,:,2]
+#     y = data[i,:,3]
+#     particles.set_data(x, y)
+#     return particles,
+# 
+# ani = animation.FuncAnimation(fig, animate, frames = num_timesteps, init_func=init, blit=True)
+# ani.save(graphs_path + 'tarefa-E/evolucao.gif', writer='imagemagick', dpi=DPI)
+# plt.close()
+fig, ax = plt.subplots(1, 3, figsize=(20,7), facecolor="lightgray")
 for i in range(1, 4):
     fname_positions = f'saidas/tarefa-E/evolucao-posicoes-{i}.dat'
     data = np.loadtxt(fname_positions)
@@ -304,26 +373,75 @@ for i in range(1, 4):
     num_particles = int(params[0])
     L = params[1]
     dt = params[3]
-
+    
+    ax[i-1].grid(which="major", linewidth=0.3)
+    ax[i-1].grid(which="minor", linewidth=0.3)
+    ax[i-1].minorticks_on()
 
     num_timesteps = data.shape[0] // num_particles
-
     data = data.reshape((num_timesteps, num_particles, -1))
-
-    fig, ax = plt.subplots(1, 1, figsize=(8,8), facecolor="lightgray")
-
     colors = plt.cm.jet(np.linspace(0, 1, num_particles))
+    for j in range(num_particles):
+        x = data[:, j, 1]
+        y = data[:, j, 2]
+        ax[i-1].plot(x, y, 'o', markersize=4,markeredgewidth=.3, color='black', markerfacecolor=colors[j], label=f'Particle {j+1}')
+    ax[i-1].set_xlim(0, L)
+    ax[i-1].set_ylim(0, L)
+plt.savefig(graphs_path + f'tarefa-E/posicoes-finais.png', bbox_inches='tight', dpi=DPI)
 
-    for i in range(num_particles):
-        x = data[:, i, 1]
-        y = data[:, i, 2]
-        ax.plot(x, y, 'o', markersize=4,markeredgewidth=.3, color='black', markerfacecolor=colors[i], label=f'Particle {i+1}')
+"""
+     Tarefa F 
+"""
+fig, ax = plt.subplots(1, 3, figsize=(20,7), facecolor="lightgray")
+for i in range(1, 4):
+    fname_positions = f'saidas/tarefa-F/evolucao-posicoes-{i}.dat'
+    data = np.loadtxt(fname_positions)
+    params = np.loadtxt("saidas/tarefa-F/parametros.dat")
+    num_particles = int(params[0])
+    L = params[1]
+    dt = params[3]
+    
+    ax[i-1].grid(which="major", linewidth=0.3)
+    ax[i-1].grid(which="minor", linewidth=0.3)
+    ax[i-1].minorticks_on()
 
-    plt.grid(which="major", linewidth=0.3)
-    plt.grid(which="minor", linewidth=0.3)
-    plt.minorticks_on()
-    ax.set_xlim(0, L)
-    ax.set_ylim(0, L)
+    num_timesteps = data.shape[0] // num_particles
+    data = data.reshape((num_timesteps, num_particles, -1))
+    colors = plt.cm.jet(np.linspace(0, 1, num_particles))
+    for j in range(num_particles):
+        x = data[:, j, 1]
+        y = data[:, j, 2]
+        ax[i-1].plot(x, y, 'o', markersize=4,markeredgewidth=.3, color='black', markerfacecolor=colors[j], label=f'Particle {j+1}')
+    ax[i-1].set_xlim(0, L)
+    ax[i-1].set_ylim(0, L)
+plt.savefig(graphs_path + f'tarefa-F/posicoes-finais.png', bbox_inches='tight', dpi=DPI)
 
-    plt.savefig(graphs_path + f'tarefa-E/posicoes-finais-{i}.png', bbox_inches='tight', dpi=DPI)
-    #plt.show()
+fname = "saidas/tarefa-F/energia.dat"
+data = np.loadtxt(fname)
+params = np.loadtxt("saidas/tarefa-F/parametros.dat")
+
+num_particles = int(params[0])
+L = params[1]
+dt = params[3]
+steps = data[:, 0]
+E = data[:, 1]
+
+fig , ax =  plt.subplots(1, 1, figsize=(8,8), facecolor="lightgray")
+
+font = {
+        'weight' : 'bold',
+        'size'   : 16}
+plt.rc('text', usetex=True)
+plt.rc('text.latex', preamble=r'\usepackage{amsmath}')
+plt.rc('font', **font) 
+
+ax.plot(steps * dt, E, '-')
+ax.set_xlabel("$t$")
+ax.set_ylabel(f"$E$")
+
+ax.grid(which="major", linewidth=0.3)
+ax.minorticks_on()
+ax.grid(which="minor", linewidth=0.3)
+plt.legend()
+plt.savefig(graphs_path + f'tarefa-F/energia.png', bbox_inches='tight', dpi=DPI)
+plt.show()
