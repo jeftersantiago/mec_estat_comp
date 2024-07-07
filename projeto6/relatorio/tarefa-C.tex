@@ -1,3 +1,12 @@
+Como foi discutido em (\ref{sec:sec_b}) o nosso interesse agora é realizar a mesma simulação numérica 
+para distribuiçẽos de velocidades, porém para um sistema com configurações iniciais de velocidades 
+diferente do anterior. 
+
+Para isso foi necessário realizar modificações na implementação da simulação e não foi utilizado o mesmo 
+programa que o da tarefa A (\ref{ssec:codigoA}). O código (\ref{ssec:codigoC}) inicializa cada métade 
+das partículas com velocidade $1$ em apenas uma componente $x$ ou $y$. 
+O resultado da dinâmica pode ser observado no \verb|gif| gerado e armazenado na  \verb|graficos/tarefa-C/evolucao.gif|. E 
+os resultados das distribuições seguem abaixo.
 
 \begin{figure}[h!]
     \centering
@@ -7,8 +16,17 @@
 \end{figure}
 
 
+De imediato observa-se que toda distribuições parecem seguir as curvas teóricas, no entanto, quase todas 
+elas são transladadas. A distribuição das magnitudes só se aproxima muito bem da curva teórica para um tempo muito avançado $t=60-80$, ponto em que o sistema deve estar 
+próximo do equilíbrio térmico.
 
-\subsection*{Código}
+
+Nota-se que esse resultado nos mostra que podemos atingir o equilíbrio independente do perfil inicial de 
+velocidades empregado às moléculas do sistema. Mas, o ``tradeoff'' que precisamos realizar nesse caso é 
+executar a dinâmica por muito mais iterações. 
+
+\subsection{Implementação - Simuação C}
+\label{ssec:codigoC}
 Nesse código temos a simulação desse item, considerandos as mudanças do perfil inicial de velocidades 
 das partículas. E além disso ela também gera os dados necessários para o cálculo da tarefa posterior, D, assim 
 como parte do código da tarefa A também fazia o mesmo.

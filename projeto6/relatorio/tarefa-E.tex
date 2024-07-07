@@ -1,12 +1,29 @@
+Agora que estudamos a dinâmica molecular e conseguimos atingir observar o que as velocidades 
+seguem distribuições de Maxwell-Boltzman, queremos impor uma dinâmica específica sobre o 
+gás 2D. 
+Nesse caso queremos observar a cristalização de moleculas, e para isso consideramos uma caixa 
+de tamanho $L=4$ com $N = 16$ partículas, ou seja, a densidade nesse caso é $\sigma = 1$, o passo 
+foi $\Delta t = 0.005$ e a velocidade inicial de teste $v_0 = 1$. 
+No entanto, para essa velocidade não foi possível observar a cristalização acontecendo nos diferentes regimes
+de temo desejados, por isso foi necessário diminuir a velocidade inicial $v_0$ para 
+$v_0 = 0.2$. Isso condiz com um sistema à baixa temperaturas de alta densidade. 
+
+Como pode ver abaixo (\ref{fig:posicoes-finais-e}) correspondem à cristalização das moléculas. 
+Da esquerda para a direita temos o ``rastro'' das partículas nos temos $0 \leq t \leq 0.1$, $0.2 \leq t \leq 0.4$ e 
+por fim $13 \leq t \leq 16$. Foram consideradas as posições em intervalos de $ 10 \Delta t$. 
 
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.95\linewidth]{tarefa-E/posicoes-finais.png}
-    \caption{}
+    \caption{Etapas da cristalização das moléculas.}
     \label{fig:posicoes-finais-e}
 \end{figure}
 
 
-\subsection*{Código}
+Além desse gráfico foi construido um vídeo para essa tarefa. Esse é um pouco mais longo que os anteriores\footnote{E espero que consiga subir ele para o basalto.}
+mas observando apenas os segundos finais dele podemos notar que as partículas permanecem quase presas em uma determinada região nas proximidades da 
+do ponto de cristalização. É possível até perceber a estrutura triangular com a qual as partículas se movimentam em torno dos vizinhos. 
+
+\subsection*{Implementação - Simulação E}
 \input{codigos/tarefa-e.tex}
 \clearpage 

@@ -1,3 +1,20 @@
+Por fim, queremos elaborar um pouco mais a dinâmica da tópico anterior(\ref{sec:secE}). 
+Agora iremos impor uma fusão à um sólido. Para isso consideraremos um sistema de mesmas dimensões que o anterior 
+e executaremos a dinâmica normalmente até atingir a cristalização como antes. A partir desse ponto
+nosso impomos uma dinâmica externa às moléculas aumentando sua velocidade por um fator $\gamma = 1.5$. Repetimos 
+essa dinâmica até que o sistema atinja um novo equilíbrio térmico. 
+
+A imposição de novas velocidades é dada por 
+
+\begin{equation}
+    \mathbf{r}_{\text{anterior}} \longleftarrow \mathbf{r}_{\text{atual}} - (\mathbf{r}_{\text{atual}}-\mathbf{r}_{\text{anterior}})\gamma
+    \label{eq:update_vels}
+\end{equation}
+
+Após muitas iterações e aplicando a (\ref{eq:update_vels}) às velocidades conseguimos observar a fusão acontecendo pela 
+figura(\ref{fig:posicoes-finais-f}). Nota-se que talvez a escolha de intervalo para a figura do meio talvez não tenha sido 
+tão boa, mas espero que seja possível perceber o inicio da difusão das moléculas em um entorno da cristalização anterior. 
+
 \begin{figure}[h!]
     \centering
     \includegraphics[width=0.95\linewidth]{tarefa-F/posicoes-finais.png}
@@ -5,12 +22,23 @@
     \label{fig:posicoes-finais-f}
 \end{figure}
 
+
+E para finalizar, também foi feito um gráfico da energia desse sistema. Era de se esperar que fosse haver um 
+aumentando de energia simplesmente pelo fato de ser um processo de fusão e o gráfico abaixo (\ref{fig:energia-f})
+expressa esse fato assim como mostra o quão abrupto é o aumento dessa energia, já que a nossa dinâmica 
+de aumento velocidades é instantâneo.
+
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.6\linewidth]{tarefa-F/energia.png}
+    \includegraphics[width=0.4\linewidth]{tarefa-F/energia.png}
     \caption{Energia total a cada tempo.}
     \label{fig:energia-f}
 \end{figure}
 
-\subsection*{Código}
+
+\clearpage
+\subsection{Implementação - Simulação F}
+Um detalhe que não consegui explicar sobre essa simulação é que a única forma que consegui fazer a fusão acontecer 
+corretamente foi considerando apenas uma das componenentes na (\ref{eq:update_vels}) e não todo vetor. 
+
 \input{codigos/tarefa-f.tex}

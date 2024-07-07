@@ -1,27 +1,46 @@
+A primeira simulação feita foi simplesmente executar a dinâmica do por um 
+determinado número de iterações. Iniciamos posicionando as moléculas no espaço 
+2D nos centros de malha regular com espaçamentos de $L/\sqrt{N}$ onde $L$ é o tamanho da 
+caixa e $N$ o número de partículas e então adicionando um pequeno deslocamento aleatório
+em cada uma delas. 
+
+A figura(\ref{fig:posicoes-iniciais-a}) abaixo mostra esse posicionamento inicial definido para os corpos.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[width=0.4\linewidth]{tarefa-A/posicoes-iniciais.png}
+    \includegraphics[width=0.3\linewidth]{tarefa-A/posicoes-iniciais.png}
     \caption{Posições iniciais das partículas.}
     \label{fig:posicoes-iniciais-a}
 \end{figure}
 
+a figura abaixo mostra o  ``rastro'' que as partículas fazem para uma simulação de $500$ iterações. 
+Os dados considerados são somentes os iterações multiplas de $3 \Delta t$. Além dessa figura 
+também foi gerado uma animação em \verb|gif| da dinâmica molecular, é o arquivo 
+localizado na pasta \verb|gráficos/tarefa-A/| entitulado \verb|evolucao.gif|.  
+
 \begin{figure}[h!]
     \centering 
-    \includegraphics[width=0.4\linewidth]{tarefa-A/posicoes-finais.png}
+    \includegraphics[width=0.3\linewidth]{tarefa-A/posicoes-finais.png}
     \label{fig:posicoes-finais-a}
     \caption{Coordenadas das partículas projetadas à cada $3 \Delta t$.}
 \end{figure}
 
+
+Também foi construido também um gráfico da energia(\ref{fig:energia-a}) total do sistema para essa simulação.
+podemos notar que há variações grandes na energia, mas ela ainda se mantem oscilando em torno de um valor, isso era o esperado. 
+Essa variação pode ser devido ao uso de condições periodicas de contorno utilizadas, já que o numéro de partículas e densidade de partículas 
+é relativamente pequeno.
+
 \begin{figure}[h!]
     \centering 
-    \includegraphics[width=0.4\linewidth]{tarefa-A/energia.png}
+    \includegraphics[width=0.3\linewidth]{tarefa-A/energia.png}
     \caption{Energia do sistema à cada $3 \Delta t$.}
     \label{fig:energia_a}
 \end{figure}
 
 \clearpage
-\subsection*{Código}
+\subsection{Implementação - Simulação A}
+\label{ssec:codigoA}
 O código abaixo está no diretório \verb|tarefa-a/| e contém 
 as simulações referentes às tarefas A, B e parte da D.
 \input{codigos/tarefa-a.tex}
